@@ -16,12 +16,14 @@ namespace TDA.Clases
         ObtenerKeyPrincipal<T, J> _fnObtenerLLavePrincipal;
         private int grado;
         private bool yaInsertado = false;
+        private NodoIndividual<T> nuevito;
 
         public ArbolB(int grado)
         {
             this.grado = grado;
             raiz = null;
             raiz = new NodoLista<T>(grado);
+            nuevito = null;
         }
 
         /// <summary>
@@ -95,6 +97,8 @@ namespace TDA.Clases
         /// <param name="dato">Valor que estara almacenado dentro del nodo</param>
         public void Insertar(T dato)
         {
+            nuevito = new NodoIndividual<T>();
+            nuevito.valor = dato;
             if ((this.FuncionCompararLlave == null) || (this.FuncionObtenerLlave == null))
                 throw new Exception("No se han inicializado las funciones para operar la estructura");
 
@@ -106,7 +110,7 @@ namespace TDA.Clases
 
                 if (validarEspacio(raiz))
                 {
-                    insertarEnArreglo(raiz.valores, dato);
+                    insertarEnArreglo(raiz, dato);
 
                     int ind = buscarEnLista(raiz, dato);
                     if (FuncionCompararLlavePrincipal(FuncionObtenerLlavePrincipal(raiz.valores[ind].valor), FuncionObtenerLlavePrincipal(dato)) == 0
@@ -117,27 +121,34 @@ namespace TDA.Clases
                 }
                 else //Si ya esta lleno procede a hacer el primer split de todos en la raiz
                 {
-                    separarNodos(raiz, dato);
+                    separarNodos(raiz, nuevito);
                 }
             }
             else
             {
-                insertarInterno(raiz, dato);
+                insertarInterno(raiz, nuevito);
             }
 
 
             if (yaInsertado)
             {
                 //insertar a la lisa gg
+                asignarPadres(raiz);
                 yaInsertado = false;
+                nuevito = null;
             }
         }
 
-
-        private void insertarInterno(NodoLista<T> aux, T dato)
+        /// <summary>
+        /// Metodo de insercion recursivo para cuando algun valor del nodo lista
+        /// ya tengo hijos
+        /// </summary>
+        /// <param name="aux">Nodo lista a evaluar o insertar</param>
+        /// <param name="dato">Valor a insertar</param>
+        private void insertarInterno(NodoLista<T> aux, NodoIndividual<T> dato)
         {
-            K llaveInsertar = FuncionObtenerLlave(dato);
-            J llavePrincipalInsertar = FuncionObtenerLlavePrincipal(dato);
+            K llaveInsertar = FuncionObtenerLlave(dato.valor);
+            J llavePrincipalInsertar = FuncionObtenerLlavePrincipal(dato.valor);
 
             for (int i = 0; i < aux.valores.Length; i++)
             {
@@ -147,7 +158,7 @@ namespace TDA.Clases
                     //si la funcion principal es igual, pasa al segundo criterio
                     if (FuncionCompararLlavePrincipal(FuncionObtenerLlavePrincipal(aux.valores[i].valor), llavePrincipalInsertar) == 0)
                     {
-                        if (i == 0 && FuncionCompararLlave(FuncionObtenerLlave(aux.valores[0].valor), llaveInsertar) < 0)
+                        if (i == 0 && FuncionCompararLlave(FuncionObtenerLlave(aux.valores[0].valor), llaveInsertar) > 0)
                         {
                             if (aux.valores[i].izquierdo != null)
                             {
@@ -155,10 +166,10 @@ namespace TDA.Clases
                                 {
                                     if (validarEspacio(aux.valores[i].izquierdo))
                                     {
-                                        insertarEnArreglo(aux.valores[i].izquierdo.valores, dato);
+                                        insertarEnArreglo(aux.valores[i].izquierdo, dato.valor);
 
-                                        int ind = buscarEnLista(aux.valores[i].izquierdo, dato);
-                                        if (FuncionCompararLlave(FuncionObtenerLlave(aux.valores[i].izquierdo.valores[ind].valor), FuncionObtenerLlave(dato)) == 0)
+                                        int ind = buscarEnLista(aux.valores[i].izquierdo, dato.valor);
+                                        if (FuncionCompararLlave(FuncionObtenerLlave(aux.valores[i].izquierdo.valores[ind].valor), llaveInsertar) == 0)
                                         {
                                             yaInsertado = true;
                                             break;
@@ -167,6 +178,10 @@ namespace TDA.Clases
                                     else
                                     {
                                         separarNodos(aux.valores[i].izquierdo, dato);
+                                        if (yaInsertado)
+                                        {
+                                            break;
+                                        }
                                     }
                                 }
                                 else
@@ -176,7 +191,7 @@ namespace TDA.Clases
                             }
                         }//Caso sea mayor a la ultima posicion
                         else if ((i == aux.valores.Length - 1 || aux.valores[i + 1] == null)
-                            && FuncionCompararLlave(FuncionObtenerLlave(aux.valores[i].valor), llaveInsertar) > 0)
+                            && FuncionCompararLlave(FuncionObtenerLlave(aux.valores[i].valor), llaveInsertar) < 0)
                         {
                             if (aux.valores[i].derecho != null)
                             {
@@ -184,10 +199,10 @@ namespace TDA.Clases
                                 {
                                     if (validarEspacio(aux.valores[i].derecho))
                                     {
-                                        insertarEnArreglo(aux.valores[i].derecho.valores, dato);
+                                        insertarEnArreglo(aux.valores[i].derecho, dato.valor);
 
-                                        int ind = buscarEnLista(aux.valores[i].derecho, dato);
-                                        if (FuncionCompararLlave(FuncionObtenerLlave(aux.valores[i].derecho.valores[ind].valor), FuncionObtenerLlave(dato)) == 0)
+                                        int ind = buscarEnLista(aux.valores[i].derecho, dato.valor);
+                                        if (FuncionCompararLlave(FuncionObtenerLlave(aux.valores[i].derecho.valores[ind].valor), llaveInsertar) == 0)
                                         {
                                             yaInsertado = true;
                                             break;
@@ -196,6 +211,10 @@ namespace TDA.Clases
                                     else
                                     {
                                         separarNodos(aux.valores[i].derecho, dato);
+                                        if (yaInsertado)
+                                        {
+                                            break;
+                                        }
                                     }
                                 }
                                 else
@@ -205,8 +224,8 @@ namespace TDA.Clases
                             }
                         }//Caso este contenido entre dos valores
                         else if (i < aux.valores.Length - 1 && aux.valores[i + 1] != null &&
-                            (FuncionCompararLlave(FuncionObtenerLlave(aux.valores[i].valor), llaveInsertar) > 0
-                            && FuncionCompararLlave(FuncionObtenerLlave(aux.valores[i + 1].valor), llaveInsertar) < 0))
+                            (FuncionCompararLlave(FuncionObtenerLlave(aux.valores[i].valor), llaveInsertar) < 0
+                            && FuncionCompararLlave(FuncionObtenerLlave(aux.valores[i + 1].valor), llaveInsertar) > 0))
                         {
                             if (aux.valores[i].derecho != null)
                             {
@@ -214,10 +233,10 @@ namespace TDA.Clases
                                 {
                                     if (validarEspacio(aux.valores[i].derecho))
                                     {
-                                        insertarEnArreglo(aux.valores[i].derecho.valores, dato);
+                                        insertarEnArreglo(aux.valores[i].derecho, dato.valor);
 
-                                        int ind = buscarEnLista(aux.valores[i].derecho, dato);
-                                        if (FuncionCompararLlave(FuncionObtenerLlave(aux.valores[i].derecho.valores[ind].valor), FuncionObtenerLlave(dato)) == 0)
+                                        int ind = buscarEnLista(aux.valores[i].derecho, dato.valor);
+                                        if (FuncionCompararLlave(FuncionObtenerLlave(aux.valores[i].derecho.valores[ind].valor), llaveInsertar) == 0)
                                         {
                                             yaInsertado = true;
                                             break;
@@ -226,6 +245,10 @@ namespace TDA.Clases
                                     else
                                     {
                                         separarNodos(aux.valores[i].derecho, dato);
+                                        if (yaInsertado)
+                                        {
+                                            break;
+                                        }
                                     }
                                 }
                                 else
@@ -235,7 +258,7 @@ namespace TDA.Clases
                             }
                         }
                     }//Caso sea menor a la primera posicion con llave principal
-                    else if (i == 0 && FuncionCompararLlavePrincipal(FuncionObtenerLlavePrincipal(aux.valores[0].valor), llavePrincipalInsertar) < 0)
+                    else if (i == 0 && FuncionCompararLlavePrincipal(FuncionObtenerLlavePrincipal(aux.valores[0].valor), llavePrincipalInsertar) > 0)
                     {
                         if (aux.valores[i].izquierdo != null)
                         {
@@ -243,11 +266,11 @@ namespace TDA.Clases
                             {
                                 if (validarEspacio(aux.valores[i].izquierdo))
                                 {
-                                    insertarEnArreglo(aux.valores[i].izquierdo.valores, dato);
+                                    insertarEnArreglo(aux.valores[i].izquierdo, dato.valor);
 
-                                    int ind = buscarEnLista(aux.valores[i].izquierdo, dato);
-                                    if (FuncionCompararLlavePrincipal(FuncionObtenerLlavePrincipal(aux.valores[i].izquierdo.valores[ind].valor), FuncionObtenerLlavePrincipal(dato)) == 0
-                                        && FuncionCompararLlave(FuncionObtenerLlave(aux.valores[i].izquierdo.valores[ind].valor), FuncionObtenerLlave(dato)) == 0)
+                                    int ind = buscarEnLista(aux.valores[i].izquierdo, dato.valor);
+                                    if (FuncionCompararLlavePrincipal(FuncionObtenerLlavePrincipal(aux.valores[i].izquierdo.valores[ind].valor), llavePrincipalInsertar) == 0
+                                        && FuncionCompararLlave(FuncionObtenerLlave(aux.valores[i].izquierdo.valores[ind].valor), llaveInsertar) == 0)
                                     {
                                         yaInsertado = true;
                                         break;
@@ -256,6 +279,10 @@ namespace TDA.Clases
                                 else
                                 {
                                     separarNodos(aux.valores[i].izquierdo, dato);
+                                    if (yaInsertado)
+                                    {
+                                        break;
+                                    }
                                 }
                             }
                             else
@@ -263,9 +290,9 @@ namespace TDA.Clases
                                 insertarInterno(aux.valores[i].izquierdo, dato);
                             }
                         }
-                    }//Caso sea mayor a la ultima posicion con llave principal
+                    }//Caso sea mayor a la ultima posicion llena con llave principal
                     else if ((i == aux.valores.Length - 1 || aux.valores[i + 1] == null)
-                        && FuncionCompararLlavePrincipal(FuncionObtenerLlavePrincipal(aux.valores[i].valor), llavePrincipalInsertar) > 0)
+                        && FuncionCompararLlavePrincipal(FuncionObtenerLlavePrincipal(aux.valores[i].valor), llavePrincipalInsertar) < 0)
                     {
                         if (aux.valores[i].derecho != null)
                         {
@@ -273,11 +300,11 @@ namespace TDA.Clases
                             {
                                 if (validarEspacio(aux.valores[i].derecho))
                                 {
-                                    insertarEnArreglo(aux.valores[i].derecho.valores, dato);
+                                    insertarEnArreglo(aux.valores[i].derecho, dato.valor);
 
-                                    int ind = buscarEnLista(aux.valores[i].derecho, dato);
-                                    if (FuncionCompararLlavePrincipal(FuncionObtenerLlavePrincipal(aux.valores[i].izquierdo.valores[ind].valor), FuncionObtenerLlavePrincipal(dato)) == 0
-                                        && FuncionCompararLlave(FuncionObtenerLlave(aux.valores[i].derecho.valores[ind].valor), FuncionObtenerLlave(dato)) == 0)
+                                    int ind = buscarEnLista(aux.valores[i].derecho, dato.valor);
+                                    if (FuncionCompararLlavePrincipal(FuncionObtenerLlavePrincipal(aux.valores[i].derecho.valores[ind].valor), llavePrincipalInsertar) == 0
+                                        && FuncionCompararLlave(FuncionObtenerLlave(aux.valores[i].derecho.valores[ind].valor), llaveInsertar) == 0)
                                     {
                                         yaInsertado = true;
                                         break;
@@ -286,6 +313,10 @@ namespace TDA.Clases
                                 else
                                 {
                                     separarNodos(aux.valores[i].derecho, dato);
+                                    if (yaInsertado)
+                                    {
+                                        break;
+                                    }
                                 }
                             }
                             else
@@ -295,8 +326,8 @@ namespace TDA.Clases
                         }
                     }//Caso este contenido entre dos valores con llave principal
                     else if (i < aux.valores.Length - 1 && aux.valores[i + 1] != null &&
-                        (FuncionCompararLlavePrincipal(FuncionObtenerLlavePrincipal(aux.valores[i].valor), llavePrincipalInsertar) > 0
-                        && FuncionCompararLlavePrincipal(FuncionObtenerLlavePrincipal(aux.valores[i + 1].valor), llavePrincipalInsertar) < 0))
+                        (FuncionCompararLlavePrincipal(FuncionObtenerLlavePrincipal(aux.valores[i].valor), llavePrincipalInsertar) < 0
+                        && FuncionCompararLlavePrincipal(FuncionObtenerLlavePrincipal(aux.valores[i + 1].valor), llavePrincipalInsertar) > 0))
                     {
                         if (aux.valores[i].derecho != null)
                         {
@@ -304,11 +335,11 @@ namespace TDA.Clases
                             {
                                 if (validarEspacio(aux.valores[i].derecho))
                                 {
-                                    insertarEnArreglo(aux.valores[i].derecho.valores, dato);
+                                    insertarEnArreglo(aux.valores[i].derecho, dato.valor);
 
-                                    int ind = buscarEnLista(aux.valores[i].derecho, dato);
-                                    if (FuncionCompararLlavePrincipal(FuncionObtenerLlavePrincipal(aux.valores[i].izquierdo.valores[ind].valor), FuncionObtenerLlavePrincipal(dato)) == 0
-                                        && FuncionCompararLlave(FuncionObtenerLlave(aux.valores[i].derecho.valores[ind].valor), FuncionObtenerLlave(dato)) == 0)
+                                    int ind = buscarEnLista(aux.valores[i].derecho, dato.valor);
+                                    if (FuncionCompararLlavePrincipal(FuncionObtenerLlavePrincipal(aux.valores[i].derecho.valores[ind].valor), llavePrincipalInsertar) == 0
+                                        && FuncionCompararLlave(FuncionObtenerLlave(aux.valores[i].derecho.valores[ind].valor), llaveInsertar) == 0)
                                     {
                                         yaInsertado = true;
                                         break;
@@ -317,6 +348,10 @@ namespace TDA.Clases
                                 else
                                 {
                                     separarNodos(aux.valores[i].derecho, dato);
+                                    if (yaInsertado)
+                                    {
+                                        break;
+                                    }
                                 }
                             }
                             else
@@ -334,26 +369,39 @@ namespace TDA.Clases
         /// </summary>
         /// <param name="aux">Arreglo o lista</param>
         /// <param name="dato">Valor</param>
-        private void insertarEnArreglo(NodoIndividual<T>[] aux, T dato)
+        private void insertarEnArreglo(NodoLista<T> aux, T dato)
         {
-            for (int i = 0; i < aux.Length; i++)
+            for (int i = 0; i < aux.valores.Length; i++)
             {
-                if (aux[i] == null)
+                if (aux.valores[i] == null)
                 {
                     NodoIndividual<T> nuevo = new NodoIndividual<T>();
                     nuevo.valor = dato;
-                    aux[i] = nuevo;
-                    ordenarNodo(aux);
+                    //nuevo.padre = aux.Padre;
+                    aux.valores[i] = nuevo;
+                    ordenarNodo(aux.valores);
                     break;
                 }
             }
         }
 
-        private void asignarHijos(Nodo<T>[] aux)
+        /// <summary>
+        /// Inserta un nodo que ya existe en un nodo lista distinto
+        /// </summary>
+        /// <param name="aux">Nodo lista en el que inserta</param>
+        /// <param name="nodo">Nodo a insertar</param>
+        private void insertarExistenteEnArreglo(NodoLista<T> aux, NodoIndividual<T> nodo)
         {
-
+            for (int i = 0; i < aux.valores.Length; i++)
+            {
+                if (aux.valores[i] == null)
+                {
+                    aux.valores[i] = nodo;
+                    ordenarNodo(aux.valores);
+                    break;
+                }
+            }
         }
-
 
         /// <summary>
         /// Validar si el nodo lista tiene hijos en alguna de sus posiciones
@@ -373,6 +421,38 @@ namespace TDA.Clases
                 }
             }
             return false;
+        }
+
+        private void asignarPadres(NodoLista<T> aux)
+        {
+            if (aux != null)
+            {
+                NodoLista<T> guardado = aux;
+                for (int i = 0; i < aux.valores.Length; i++)
+                {
+                    if (aux.valores[i] != null)
+                    {
+                        if (i == 0 && aux.valores[i].izquierdo != null)
+                        {
+                            asignarPadres(aux.valores[i].izquierdo);
+                        }
+                        else if ((i == aux.valores.Length - 1 || aux.valores[i + 1] == null) && aux.valores[i].derecho != null)
+                        {
+                            asignarPadres(aux.valores[i].derecho);
+                        }
+                        else if (aux.valores[i].izquierdo != null && aux.valores[i].derecho != null)
+                        {
+                            aux.valores[i].izquierdo.Padre = aux;
+                            aux.valores[i].derecho.Padre = aux;
+                        }
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+
         }
 
         /// <summary>
@@ -412,12 +492,23 @@ namespace TDA.Clases
                                 aux[i] = aux[i + 1];
                                 aux[i + 1] = tempo;
                             }
+
+                            if (i != 0 && FuncionCompararLlavePrincipal(FuncionObtenerLlavePrincipal(aux[i].valor), FuncionObtenerLlavePrincipal(aux[i - 1].valor)) == 0
+                                && this.FuncionCompararLlave(FuncionObtenerLlave(aux[i].valor), FuncionObtenerLlave(aux[i - 1].valor)) < 0)
+                            {
+                                ordenarNodo(aux);
+                            }
                         }
                         else if (FuncionCompararLlavePrincipal(FuncionObtenerLlavePrincipal(aux[i].valor), FuncionObtenerLlavePrincipal(aux[i + 1].valor)) > 0)
                         {
                             NodoIndividual<T> tempo = aux[i];
                             aux[i] = aux[i + 1];
                             aux[i + 1] = tempo;
+
+                            if (i != 0 && FuncionCompararLlavePrincipal(FuncionObtenerLlavePrincipal(aux[i].valor), FuncionObtenerLlavePrincipal(aux[i - 1].valor)) < 0)
+                            {
+                                ordenarNodo(aux);
+                            }
                         }
                     }
                 }
@@ -441,6 +532,107 @@ namespace TDA.Clases
             return 0;
         }
 
+        private void asignarHijos(NodoIndividual<T>[] aux, int ind)
+        {
+            if (ind == 0 && aux[ind + 1] != null)
+            {
+                aux[ind + 1].izquierdo = aux[ind].derecho;
+            }
+            else if (ind == aux.Length - 1 || (ind < aux.Length - 1 && aux[ind + 1] == null))
+            {
+                aux[ind - 1].derecho = aux[ind].izquierdo;
+            }
+            else if (aux[ind - 1] != null && aux[ind + 1] != null)
+            {
+                aux[ind + 1].izquierdo = aux[ind].derecho;
+                aux[ind - 1].derecho = aux[ind].izquierdo;
+            }
+        }
+
+        public void buscarEnArbol(NodoLista<T> aux, NodoIndividual<T> dato)
+        {
+            K llaveBuscar = FuncionObtenerLlave(dato.valor);
+            J llaveBuscarPrincipal = FuncionObtenerLlavePrincipal(dato.valor);
+
+            for (int i = 0; i < aux.valores.Length; i++)
+            {
+                if (aux.valores[i] != null)
+                {
+                    if (FuncionCompararLlavePrincipal(FuncionObtenerLlavePrincipal(aux.valores[i].valor), llaveBuscarPrincipal) == 0
+                        && FuncionCompararLlave(FuncionObtenerLlave(aux.valores[i].valor), llaveBuscar) == 0)
+                    {
+                        int ind = buscarEnLista(aux, dato.valor);
+                        if (ind == 0)
+                        {
+                            if (aux.valores[0] == dato)
+                            {
+                                asignarHijos(aux.valores, ind);
+                            }
+                        }
+                        else
+                        {
+                            asignarHijos(aux.valores, ind);
+                        }
+                        break;
+                    }
+                }
+
+
+            }
+
+            for (int i = 0; i < aux.valores.Length; i++)
+            {
+
+                if (aux.valores[i] != null)
+                {
+                    //si la funcion principal es igual, pasa al segundo criterio
+                    if (FuncionCompararLlavePrincipal(FuncionObtenerLlavePrincipal(aux.valores[i].valor), llaveBuscarPrincipal) == 0)
+                    {
+                        //Caso sea menor a la primera posicion
+                        if (i == 0 && FuncionCompararLlave(FuncionObtenerLlave(aux.valores[0].valor), llaveBuscar) > 0)
+                        {
+                            buscarEnArbol(aux.valores[i].izquierdo, dato);
+                            break;
+                        }
+                        //Caso sea mayor a la ultima posicion
+                        else if ((i == aux.valores.Length - 1 || aux.valores[i + 1] == null)
+                            && FuncionCompararLlave(FuncionObtenerLlave(aux.valores[i].valor), llaveBuscar) < 0)
+                        {
+                            buscarEnArbol(aux.valores[i].derecho, dato);
+                            break;
+                        }
+                        //Caso este contenido entre dos valores
+                        else if (i < aux.valores.Length - 1 && aux.valores[i + 1] != null &&
+                            (FuncionCompararLlave(FuncionObtenerLlave(aux.valores[i].valor), llaveBuscar) < 0
+                            && FuncionCompararLlave(FuncionObtenerLlave(aux.valores[i + 1].valor), llaveBuscar) > 0))
+                        {
+                            buscarEnArbol(aux.valores[i].derecho, dato);
+                            break;
+                        }
+                    }//Caso sea menor a la primera posicion con llave principal
+                    else if (i == 0 && FuncionCompararLlavePrincipal(FuncionObtenerLlavePrincipal(aux.valores[0].valor), llaveBuscarPrincipal) > 0)
+                    {
+                        buscarEnArbol(aux.valores[i].izquierdo, dato);
+                        break;
+
+                    }//Caso sea mayor a la ultima posicion llena con llave principal
+                    else if ((i == aux.valores.Length - 1 || aux.valores[i + 1] == null)
+                        && FuncionCompararLlavePrincipal(FuncionObtenerLlavePrincipal(aux.valores[i].valor), llaveBuscarPrincipal) < 0)
+                    {
+                        buscarEnArbol(aux.valores[i].derecho, dato);
+                        break;
+                    }//Caso este contenido entre dos valores con llave principal
+                    else if (i < aux.valores.Length - 1 && aux.valores[i + 1] != null &&
+                        (FuncionCompararLlavePrincipal(FuncionObtenerLlavePrincipal(aux.valores[i].valor), llaveBuscarPrincipal) < 0
+                        && FuncionCompararLlavePrincipal(FuncionObtenerLlavePrincipal(aux.valores[i + 1].valor), llaveBuscarPrincipal) > 0))
+                    {
+                        buscarEnArbol(aux.valores[i].derecho, dato);
+                        break;
+                    }
+                }
+
+            }
+        }
 
         /// <summary>
         /// Cuando el nodo lista se encuentra lleno se crea un nuevo nodo temporal 
@@ -449,7 +641,7 @@ namespace TDA.Clases
         /// </summary>
         /// <param name="aux">Arreglo o lista</param>
         /// <param name="valor">Valor a ingresar</param>
-        public void separarNodos(NodoLista<T> aux, T valor)
+        public void separarNodos(NodoLista<T> aux, NodoIndividual<T> valor)
         {
             //Crea la lista temporal y ingresa los datos del nodo lista actual
             NodoLista<T> temp = new NodoLista<T>(grado + 1);
@@ -467,7 +659,7 @@ namespace TDA.Clases
              * algun nodo del arbol
              */
             NodoIndividual<T> nodoAux = new NodoIndividual<T>();
-            nodoAux.valor = valor;
+            nodoAux = valor;
             temp.valores[temp.valores.Length - 1] = nodoAux;
             ordenarNodo(temp.valores);
 
@@ -480,16 +672,17 @@ namespace TDA.Clases
                 indice = indice + 0.5;
             }
             subir = temp.valores[Convert.ToInt32(indice)];
-            //Todos los hermanos que tiene a la izquiera
+            //Todos los hermanos que tiene a la izquiera seran parte de su hijo izquierdo
+            //Y todos los hermanos a la derecha seran parte de su hijo derecho
             for (int i = 0; i < temp.valores.Length; i++)
             {
                 if (i < indice)
                 {
-                    insertarEnArreglo(hijoIzq.valores, temp.valores[i].valor);
+                    insertarExistenteEnArreglo(hijoIzq, temp.valores[i]);
                 }
                 else if (i > indice)
                 {
-                    insertarEnArreglo(hijoDer.valores, temp.valores[i].valor);
+                    insertarExistenteEnArreglo(hijoDer, temp.valores[i]);
                 }
             }
 
@@ -503,31 +696,42 @@ namespace TDA.Clases
                 if (validarEspacio(aux.Padre as NodoLista<T>))
                 {
                     //Falta asignar los nuevos hijos de los hermanos
-                    NodoLista<T> padreAux = aux.Padre as NodoLista<T>;
-                    insertarEnArreglo(padreAux.valores, subir.valor);
-                    int ind = buscarEnLista(padreAux, subir.valor);
+                    //if (aux.Padre.valores[0].padre == null)
+                    //{
+                    //    subir.padre = null;
+                    //}
+                    //else
+                    //{
+                    //    subir.padre = aux.Padre.valores[0].padre;
+                    //}
+                    insertarExistenteEnArreglo(aux.Padre, subir);
+                    hijoDer.Padre = aux.Padre;
+                    hijoIzq.Padre = aux.Padre;
+                    int ind = buscarEnLista(aux.Padre, subir.valor);
                     if (ind == 0)
                     {
-                        if (padreAux.valores[0] == subir)
+                        if (aux.Padre.valores[0] == subir)
                         {
-                            padreAux.valores[0] = subir;
+                            asignarHijos(aux.Padre.valores, ind);
                         }
                     }
                     else
                     {
-                        padreAux.valores[ind] = subir;
+                        asignarHijos(aux.Padre.valores, ind);
                     }
-                    aux.Padre = padreAux;
+                    yaInsertado = true;
                 }
                 else
                 {
-                    separarNodos((aux.Padre as NodoLista<T>), subir.valor);
+                    separarNodos((aux.Padre as NodoLista<T>), subir);
+                    buscarEnArbol(raiz, subir);
                 }
             }
             else
             {
                 NodoLista<T> raizAux = new NodoLista<T>(grado);
-                insertarEnArreglo(raizAux.valores, subir.valor);
+                //subir.padre = null;
+                insertarExistenteEnArreglo(raizAux, subir);
                 int ind = buscarEnLista(raizAux, subir.valor);
                 if (ind == 0)
                 {
@@ -541,8 +745,7 @@ namespace TDA.Clases
                 raiz.Padre = null;
                 hijoDer.Padre = raiz;
                 hijoIzq.Padre = raiz;
-
-
+                yaInsertado = true;
             }
         }
     }
