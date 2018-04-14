@@ -146,6 +146,7 @@ namespace ProyectoED1.Controllers
 
         }
 
+
         public static int CompararUser(string actual, string nuevo)
         {
             return actual.CompareTo(nuevo);
