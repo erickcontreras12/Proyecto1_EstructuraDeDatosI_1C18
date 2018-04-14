@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using ProyectoED1.DBContext;
 using ProyectoED1.Models;
 using Newtonsoft.Json;
+using System.IO;
+using Newtonsoft.Json.Linq;
 
 namespace ProyectoED1.Controllers
 {
@@ -111,9 +113,174 @@ namespace ProyectoED1.Controllers
             return View();
         }
 
-        public ActionResult Catalogo()
+        public ActionResult Catalogo(string id)
         {
-            return View(db.filmes.ToList());
+            List<Contenido> buscados;
+            if (id==null)
+            {
+                return View(db.filmes.ToList());
+            }
+            else
+            {
+               buscados = db.filmes.FindAll(x => x.Nombre == id);
+                if (buscados.Count() == 0)
+                {
+                    buscados = db.filmes.FindAll(x => x.Anio_Lanzamiento == id);
+
+                    if (buscados.Count==0)
+                    {
+                        buscados = db.filmes.FindAll(x => x.Genero == id);
+                    }
+                }
+                return View(buscados.ToList());
+            }
+            
+        }
+
+        public ActionResult WatchList()
+        {
+            db.publico.WatchList.Insertados.Sort(delegate (Contenido x, Contenido y)
+            {
+                return x.Nombre.CompareTo(y.Nombre);
+            });
+
+            return View(db.publico.WatchList.Insertados.ToList());
+        }
+
+        public ActionResult agregar(string id)
+        {
+            Contenido aux = db.filmes.Find(x => x.Nombre == id);
+            db.publico.WatchList.FuncionObtenerLlavePrincipal = ObtenerNombreC;
+            db.publico.WatchList.FuncionObtenerLlave = ObtenerGenero;
+            db.publico.WatchList.FuncionCompararLlavePrincipal = CompararNombreC;
+            db.publico.WatchList.FuncionCompararLlave = CompararGenero;
+            db.publico.WatchList.Insertar(aux);
+
+            return RedirectToAction("Catalogo");
+        }
+
+        public ActionResult Archivo()
+        {
+            db.Peliculas_Nombre.Insertados.Sort(delegate (Contenido x, Contenido y)
+            {
+                return x.Nombre.CompareTo(y.Nombre);
+            });
+
+            db.Peliculas_Genero.Insertados.Sort(delegate (Contenido x, Contenido y)
+            {
+                return x.Genero.CompareTo(y.Genero);
+            });
+
+            db.Peliculas_Anio.Insertados.Sort(delegate (Contenido x, Contenido y)
+            {
+                return x.Anio_Lanzamiento.CompareTo(y.Anio_Lanzamiento);
+            });
+
+            db.Series_Nombre.Insertados.Sort(delegate (Contenido x, Contenido y)
+            {
+                return x.Nombre.CompareTo(y.Nombre);
+            });
+
+            db.Series_Genero.Insertados.Sort(delegate (Contenido x, Contenido y)
+            {
+                return x.Genero.CompareTo(y.Genero);
+            });
+
+            db.Series_Anio.Insertados.Sort(delegate (Contenido x, Contenido y)
+            {
+                return x.Anio_Lanzamiento.CompareTo(y.Anio_Lanzamiento);
+            });
+
+            db.Docu_Nombre.Insertados.Sort(delegate (Contenido x, Contenido y)
+            {
+                return x.Nombre.CompareTo(y.Nombre);
+            });
+
+            db.Docu_Genero.Insertados.Sort(delegate (Contenido x, Contenido y)
+            {
+                return x.Genero.CompareTo(y.Genero);
+            });
+
+            db.Docu_Anio.Insertados.Sort(delegate (Contenido x, Contenido y)
+            {
+                return x.Anio_Lanzamiento.CompareTo(y.Anio_Lanzamiento);
+            });
+
+            var s = JsonConvert.SerializeObject(db.Peliculas_Nombre.Insertados);
+            var a = JsonConvert.SerializeObject(db.Peliculas_Genero.Insertados);
+            var b = JsonConvert.SerializeObject(db.Peliculas_Anio.Insertados);
+            var c = JsonConvert.SerializeObject(db.Series_Nombre.Insertados);
+            var d = JsonConvert.SerializeObject(db.Series_Genero.Insertados);
+            var e = JsonConvert.SerializeObject(db.Series_Anio.Insertados);
+            var f = JsonConvert.SerializeObject(db.Docu_Nombre.Insertados);
+            var g = JsonConvert.SerializeObject(db.Docu_Genero.Insertados);
+            var h = JsonConvert.SerializeObject(db.Docu_Anio.Insertados);
+
+            List<Usuario> aux = db.registrados.Insertados;
+            foreach (var item in aux)
+            {
+                item.WatchList = null;
+            }
+            var i = JsonConvert.SerializeObject(aux);
+
+            string ruta = Server.MapPath("~/ArchivosJsonCreados/");
+            if (!Directory.Exists(ruta))
+            {
+                Directory.CreateDirectory(ruta);
+            }
+            StreamWriter pelis_Nombre= new StreamWriter(ruta + "\\PeliculasPorNombre.json");
+            pelis_Nombre.Write(s);
+            pelis_Nombre.Close();
+
+            StreamWriter pelis_anio = new StreamWriter(ruta + "\\PeliculasPorAnio.json");
+            pelis_anio.Write(b);
+            pelis_anio.Close();
+
+            StreamWriter pelis_genero = new StreamWriter(ruta + "\\PeliculasPorGenero.json");
+            pelis_genero.Write(a);
+            pelis_genero.Close();
+
+            StreamWriter series_nombre = new StreamWriter(ruta + "\\SeriesPorNombre.json");
+            series_nombre.Write(c);
+            series_nombre.Close();
+
+            StreamWriter series_anio = new StreamWriter(ruta + "\\SeriesPorAnio.json");
+            series_anio.Write(d);
+            series_anio.Close();
+
+            StreamWriter series_genero = new StreamWriter(ruta + "\\SeriesPorGenero.json");
+            series_genero.Write(e);
+            series_genero.Close();
+
+            StreamWriter docu_nombre = new StreamWriter(ruta + "\\DocumentalesPorNombre.json");
+            docu_nombre.Write(f);
+            docu_nombre.Close();
+
+            StreamWriter docu_genero = new StreamWriter(ruta + "\\DocumentalesPorGenero.json");
+            docu_genero.Write(g);
+            docu_genero.Close();
+
+            StreamWriter docu_anio = new StreamWriter(ruta + "\\DocumentalesPorAnio.json");
+            docu_anio.Write(h);
+            docu_anio.Close();
+
+            StreamWriter usuarios = new StreamWriter(ruta + "\\Usuarios.json");
+            usuarios.Write(i);
+            usuarios.Close();
+       
+
+            if (db.registrados!=null)
+            {
+                foreach (var item in db.registrados.Insertados)
+                {
+                    var x = JsonConvert.SerializeObject(item.WatchList.Insertados);
+                    StreamWriter watch = new StreamWriter(ruta + "\\" + item.Nombre + "_WatchList.json");
+                    watch.Write(x);
+                    watch.Close();
+                }               
+            }          
+
+            return RedirectToAction("Administrador");
         }
 
         [HttpPost]
@@ -185,7 +352,7 @@ namespace ProyectoED1.Controllers
                 db.Peliculas_Genero.Insertar(film);
                 db.Peliculas_Anio.Insertar(film);
             }
-
+            
             return View("CrearContenido");
         }
 

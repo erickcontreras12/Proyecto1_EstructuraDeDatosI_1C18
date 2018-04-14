@@ -1,16 +1,9 @@
 ﻿@model  IEnumerable<ProyectoED1.Models.Contenido>
 @{
-    ViewBag.Title = "Catalogo";
+    ViewBag.Title = "WatchList";
 }
 
-<h2>Catalogo</h2>
-
-@using (Html.BeginForm("Catalogo", "Login", FormMethod.Get, new { enctype = "multipart/form-data" }))
-{
-    <h2>Buscar Contenido</h2>
-    @Html.TextBox("id")
-    <input type="submit" name="id" value="Buscar" />
-}
+<h2>WatchList</h2>
 
 <table class="table">
     <tr>
@@ -44,7 +37,7 @@
                 @Html.DisplayFor(modelItem => item.Genero)
             </td>
             <td>
-                @Html.ActionLink("Agregar a mi WatchList", "agregar", new { id = item.Nombre })
+                @Html.ActionLink("Eliminar", "", new { id = item.Nombre })
             </td>
         </tr>
     }

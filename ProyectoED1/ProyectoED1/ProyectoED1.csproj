@@ -148,6 +148,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CargaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="DBContext\DefaultConnection.cs" />
@@ -203,6 +204,8 @@
     <Content Include="Views\Login\Users.cshtml" />
     <Content Include="Views\Login\CrearContenido.cshtml" />
     <Content Include="Views\Login\Catalogo.cshtml" />
+    <Content Include="Views\Carga\Carga.cshtml" />
+    <Content Include="Views\Login\WatchList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
