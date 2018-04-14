@@ -17,6 +17,7 @@ namespace TDA.Clases
         private int grado;
         private bool yaInsertado = false;
         private NodoIndividual<T> nuevito;
+        public List<T> Insertados = new List<T>();
 
         public ArbolB(int grado)
         {
@@ -132,7 +133,7 @@ namespace TDA.Clases
 
             if (yaInsertado)
             {
-                //insertar a la lisa gg
+                Insertados.Add(dato);
                 asignarPadres(raiz);
                 yaInsertado = false;
                 nuevito = null;
@@ -532,6 +533,11 @@ namespace TDA.Clases
             return 0;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="aux"></param>
+        /// <param name="ind"></param>
         private void asignarHijos(NodoIndividual<T>[] aux, int ind)
         {
             if (ind == 0 && aux[ind + 1] != null)
@@ -549,6 +555,12 @@ namespace TDA.Clases
             }
         }
 
+        /// <summary>
+        /// Busca un valor especifico en el arbol para asignar los hijos al
+        /// nodo lista en el que se encuentre
+        /// </summary>
+        /// <param name="aux"></param>
+        /// <param name="dato"></param>
         public void buscarEnArbol(NodoLista<T> aux, NodoIndividual<T> dato)
         {
             K llaveBuscar = FuncionObtenerLlave(dato.valor);
