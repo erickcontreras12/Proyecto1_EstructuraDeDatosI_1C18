@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "Administrador";
+    Layout = null;
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+}
+<title>Administrador</title>
+<h2>Administrador</h2>
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        @Html.ActionLink("GUAFLIX", "Administrador", "Login", new { area = "" }, new { @class = "navbar-brand" })
+        <ul class="nav navbar-nav">
+            <li>@Html.ActionLink("Inicio", "Administrador", "Login")</li>      
+            <li>@Html.ActionLink("Lista de Usuarios", "Users", "Login")</li>            
+            <li>@Html.ActionLink("Cerrar Sesion", "Index", "Home")</li>
+        </ul>
+    </div>
+</div>
+
+<div id="Pelis">
+    @Html.ActionLink("Cargar Contenido", "CrearContenido", "Login", new { area = "" }, new { @class = "navbar-brand" })
+</div>
+
+
+<footer>
+    <p>&copy; @DateTime.Now.Year - Fabian Alvarez y Erick Contreras ED1</p>
+</footer>

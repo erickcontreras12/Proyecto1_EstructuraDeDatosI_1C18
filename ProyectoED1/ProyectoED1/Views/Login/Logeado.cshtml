@@ -1,0 +1,29 @@
+﻿
+@using ProyectoED1.DBContext;
+@{
+    ViewBag.Title = "Inicio Usuario";
+}
+
+<title>Pagina de Inicio</title>
+@{
+    Layout = null;
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+}
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        @Html.ActionLink("GUAFLIX", "Logeado", "Login", new { area = "" }, new { @class = "navbar-brand" })
+        <ul class="nav navbar-nav">
+            <li>@Html.ActionLink("Inicio", "Logeado", "Login")</li>
+            <li>@Html.ActionLink("Informacion de Cuenta", "", "Login")</li>
+            <li>@Html.ActionLink("Mi WatchList", "", "Login")</li>
+            <li>@Html.ActionLink("Cerrar Sesion", "Cerrar", "Login")</li>
+        </ul>
+    </div>
+</div>
+@Html.ActionLink("Mostrar Catalogo", "Catalogo", "Login", new { area = "" }, new { @class = "navbar-brand" })
+
+
+<h2>Bienvenido de nuevo ¡@DefaultConnection.getInstance.publico.Nombre!</h2>

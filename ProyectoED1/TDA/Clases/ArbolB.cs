@@ -17,6 +17,7 @@ namespace TDA.Clases
         private int grado;
         private bool yaInsertado = false;
         private NodoIndividual<T> nuevito;
+        public List<T> Insertados = new List<T>();
 
         public ArbolB(int grado)
         {
@@ -110,8 +111,9 @@ namespace TDA.Clases
 
                 if (validarEspacio(raiz))
                 {
+                    
                     insertarEnArreglo(raiz, dato);
-
+                    
                     int ind = buscarEnLista(raiz, dato);
                     if (FuncionCompararLlavePrincipal(FuncionObtenerLlavePrincipal(raiz.valores[ind].valor), FuncionObtenerLlavePrincipal(dato)) == 0
                         && FuncionCompararLlave(FuncionObtenerLlave(raiz.valores[ind].valor), FuncionObtenerLlave(dato)) == 0)
@@ -133,6 +135,7 @@ namespace TDA.Clases
             if (yaInsertado)
             {
                 //insertar a la lisa gg
+                Insertados.Add(dato);
                 asignarPadres(raiz);
                 yaInsertado = false;
                 nuevito = null;
