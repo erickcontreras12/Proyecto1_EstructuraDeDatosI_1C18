@@ -763,7 +763,7 @@ namespace TDA.Clases
         public List<T> Buscar(Predicate<T> x)
         {
 
-            List<T> buscados = Insertados.FindAll(x);
+            List<T> buscados = Insertados.FindAll(x).Distinct().ToList();
 
             return buscados.ToList();
         }

@@ -118,7 +118,8 @@ namespace ProyectoED1.Controllers
             List<Contenido> buscados;            
             if (id==null)
             {
-                return View(db.filmes.Insertados.ToList());
+                buscados = db.filmes.Insertados.Distinct().ToList();
+                return View(buscados.ToList());
             }
             else
             {
