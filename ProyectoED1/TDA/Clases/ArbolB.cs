@@ -545,7 +545,7 @@ namespace TDA.Clases
             {
                 aux[ind - 1].derecho = aux[ind].izquierdo;
             }
-            else if (aux[ind - 1] != null && aux[ind + 1] != null)
+            else if ((ind != 0 && ind != aux.Length - 1) && (aux[ind - 1] != null && aux[ind + 1] != null))
             {
                 aux[ind + 1].izquierdo = aux[ind].derecho;
                 aux[ind - 1].derecho = aux[ind].izquierdo;
