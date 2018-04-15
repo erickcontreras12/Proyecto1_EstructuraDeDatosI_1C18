@@ -77,6 +77,7 @@ namespace ProyectoED1.Controllers
                 }
                 catch(Exception e)
                 {
+
                     ViewBag.Message1 = "Dato erroneo.";
                 }
             }
