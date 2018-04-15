@@ -143,47 +143,11 @@ namespace TDA.Clases
             }
         }
 
-
-        private void asignarPadres2(NodoLista<T> aux, NodoLista<T> tempadre)
-        {
-            if (aux != null)
-            {
-                NodoLista<T> guardado = aux;
-                for (int i = 0; i < aux.valores.Length; i++)
-                {
-                    if (aux.valores[i] != null)
-                    {
-                        if (aux.valores[i].izquierdo != null)
-                        {
-                            asignarPadres2(aux.valores[i].izquierdo, aux);
-
-                        }
-                        else if (aux.valores[i].derecho != null)
-                        {
-                            asignarPadres2(aux.valores[i].derecho, aux);
-                        }
-                        if (tempadre != null)
-                        {
-                            guardado.Padre = tempadre;
-                            guardado.Padre = tempadre;
-                        }
-
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-            }
-
-        }
-
-
+    
         private void asignarPadres3(NodoLista<T> aux)
         {
             if (aux != null)
             {
-                NodoLista<T> guardado = aux;
                 for (int i = 0; i < aux.valores.Length; i++)
                 {
                     if (aux.valores[i] != null)
@@ -573,7 +537,11 @@ namespace TDA.Clases
 
         private void asignarHijos(NodoIndividual<T>[] aux, int ind)
         {
-            if (ind == 0 && aux[ind + 1] != null)
+            if (ind == 0 && aux[ind + 1] == null)
+            {
+               
+            }
+            else if (ind == 0 && aux[ind + 1] != null)
             {
                 aux[ind + 1].izquierdo = aux[ind].derecho;
             }
