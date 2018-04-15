@@ -137,11 +137,41 @@ namespace TDA.Clases
             {
                 //insertar a la lisa gg
               //  Insertados.Add(dato);
-                //asignarPadres(raiz);
+                asignarPadres3(raiz);
                 yaInsertado = false;
                 nuevito = null;
             }
         }
+
+        private void asignarPadres3(NodoLista<T> aux)
+        {
+            if (aux != null)
+            {
+                NodoLista<T> guardado = aux;
+                for (int i = 0; i < aux.valores.Length; i++)
+                {
+                    if (aux.valores[i] != null)
+                    {
+                        if (aux.valores[i].izquierdo != null)
+                        {
+                            asignarPadres3(aux.valores[i].izquierdo);
+                            aux.valores[i].izquierdo.Padre = aux;
+                            aux.valores[i].derecho.Padre = aux;
+                        }
+
+                        if ((i == aux.valores.Length - 1 || aux.valores[i + 1] == null) && aux.valores[i].derecho != null)
+                        {
+                            asignarPadres3(aux.valores[i].derecho);
+                        }
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+
 
         /// <summary>
         /// Metodo de insercion recursivo para cuando algun valor del nodo lista
