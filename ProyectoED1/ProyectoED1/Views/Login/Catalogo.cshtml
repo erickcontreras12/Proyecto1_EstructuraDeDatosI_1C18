@@ -45,6 +45,7 @@
             </td>
             <td>
                 @Html.ActionLink("Agregar a mi WatchList", "agregar", new { id = item.Nombre })
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.Nombre })
             </td>
         </tr>
     }

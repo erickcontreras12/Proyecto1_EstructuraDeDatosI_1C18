@@ -206,6 +206,7 @@
     <Content Include="Views\Login\Catalogo.cshtml" />
     <Content Include="Views\Carga\Carga.cshtml" />
     <Content Include="Views\Login\WatchList.cshtml" />
+    <Content Include="Views\Login\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
