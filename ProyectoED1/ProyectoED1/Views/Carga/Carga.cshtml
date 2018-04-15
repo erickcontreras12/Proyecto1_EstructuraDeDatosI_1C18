@@ -13,6 +13,12 @@
         <input type="submit" value="Subir" />
             <span style="color:green">@ViewBag.Message</span><br />
 }
+
+<div id="Pelis">
+    @Html.ActionLink("Crear Arboles de Pelicula", "CrearPelis", "Carga", new { area = "" }, new { @class = "navbar-brand" })
+    @Html.ActionLink("Crear Arboles de Serie", "CrearSeries", "Carga", new { area = "" }, new { @class = "navbar-brand" })
+    @Html.ActionLink("Crear Arboles de Documentales", "CrearDocus", "Carga", new { area = "" }, new { @class = "navbar-brand" })
+</div>
 <br />
 <br />
 <br />

@@ -33,7 +33,110 @@ namespace ProyectoED1.Controllers
         {
             db.filmes.Insertados.Add(actual.valor);
         }
-        Contenido ex;
+
+        public ActionResult CrearDocus()
+        {
+            
+                db.Docu_Nombre.FuncionObtenerLlavePrincipal = ObtenerNombreC;
+                db.Docu_Nombre.FuncionObtenerLlave = ObtenerGenero;
+                db.Docu_Nombre.FuncionCompararLlavePrincipal = CompararNombreC;
+                db.Docu_Nombre.FuncionCompararLlave = CompararGenero;
+
+                db.Docu_Genero.FuncionObtenerLlavePrincipal = ObtenerGenero;
+                db.Docu_Genero.FuncionObtenerLlave = ObtenerNombreC;
+                db.Docu_Genero.FuncionCompararLlavePrincipal = CompararGenero;
+                db.Docu_Genero.FuncionCompararLlave = CompararNombreC;
+
+                db.Docu_Anio.FuncionObtenerLlavePrincipal = ObtenerAnio;
+                db.Docu_Anio.FuncionObtenerLlave = ObtenerNombreC;
+                db.Docu_Anio.FuncionCompararLlavePrincipal = CompararAnio;
+                db.Docu_Anio.FuncionCompararLlave = CompararNombreC;            
+
+            foreach (Contenido item in db.filmes.Insertados)
+            {
+                db.Docu_Nombre.Insertar(item);
+            }
+            foreach (Contenido item in db.filmes.Insertados)
+            {
+                db.Docu_Genero.Insertar(item);
+            }
+            foreach (Contenido item in db.filmes.Insertados)
+            {
+                db.Docu_Anio.Insertar(item);
+            }
+
+            return RedirectToAction("Carga");
+        }
+
+        public ActionResult CrearPelis()
+        {
+
+            db.Peliculas_Nombre.FuncionObtenerLlavePrincipal = ObtenerNombreC;
+            db.Peliculas_Nombre.FuncionObtenerLlave = ObtenerGenero;
+            db.Peliculas_Nombre.FuncionCompararLlavePrincipal = CompararNombreC;
+            db.Peliculas_Nombre.FuncionCompararLlave = CompararGenero;
+
+            db.Peliculas_Genero.FuncionObtenerLlavePrincipal = ObtenerGenero;
+            db.Peliculas_Genero.FuncionObtenerLlave = ObtenerNombreC;
+            db.Peliculas_Genero.FuncionCompararLlavePrincipal = CompararGenero;
+            db.Peliculas_Genero.FuncionCompararLlave = CompararNombreC;
+
+            db.Peliculas_Anio.FuncionObtenerLlavePrincipal = ObtenerAnio;
+            db.Peliculas_Anio.FuncionObtenerLlave = ObtenerNombreC;
+            db.Peliculas_Anio.FuncionCompararLlavePrincipal = CompararAnio;
+            db.Peliculas_Anio.FuncionCompararLlave = CompararNombreC;
+
+            foreach (Contenido item in db.filmes.Insertados)
+            {
+                db.Peliculas_Nombre.Insertar(item);
+            }
+            foreach (Contenido item in db.filmes.Insertados)
+            {
+                db.Peliculas_Genero.Insertar(item);
+            }
+            foreach (Contenido item in db.filmes.Insertados)
+            {
+                db.Peliculas_Anio.Insertar(item);
+            }
+
+            return RedirectToAction("Carga");
+        }
+
+        public ActionResult CrearSeries()
+        {
+
+            db.Series_Nombre.FuncionObtenerLlavePrincipal = ObtenerNombreC;
+            db.Series_Nombre.FuncionObtenerLlave = ObtenerGenero;
+            db.Series_Nombre.FuncionCompararLlavePrincipal = CompararNombreC;
+            db.Series_Nombre.FuncionCompararLlave = CompararGenero;
+
+            db.Series_Genero.FuncionObtenerLlavePrincipal = ObtenerGenero;
+            db.Series_Genero.FuncionObtenerLlave = ObtenerNombreC;
+            db.Series_Genero.FuncionCompararLlavePrincipal = CompararGenero;
+            db.Series_Genero.FuncionCompararLlave = CompararNombreC;
+
+            db.Series_Anio.FuncionObtenerLlavePrincipal = ObtenerAnio;
+            db.Series_Anio.FuncionObtenerLlave = ObtenerNombreC;
+            db.Series_Anio.FuncionCompararLlavePrincipal = CompararAnio;
+            db.Series_Anio.FuncionCompararLlave = CompararNombreC;
+
+            foreach (Contenido item in db.filmes.Insertados)
+            {
+                db.Series_Nombre.Insertar(item);
+            }
+            foreach (Contenido item in db.filmes.Insertados)
+            {
+                db.Series_Genero.Insertar(item);
+            }
+            foreach (Contenido item in db.filmes.Insertados)
+            {
+                db.Series_Anio.Insertar(item);
+            }
+
+            return RedirectToAction("Carga");
+        }
+
+
         [HttpPost]
         public ActionResult Carga(HttpPostedFileBase postedFile)
         {
@@ -81,7 +184,7 @@ namespace ProyectoED1.Controllers
                 catch(Exception e)
                 {
 
-                    ViewBag.Message1 = "Dato erroneo."+ex.Nombre;
+                    ViewBag.Message1 = "Dato erroneo.";
                 }
             }
                 return View();
@@ -91,88 +194,28 @@ namespace ProyectoED1.Controllers
 
         public void Insertar(Contenido contenido)
         {
+            db.filmes.FuncionObtenerLlavePrincipal = ObtenerNombreC;
+            db.filmes.FuncionObtenerLlave = ObtenerGenero;
+            db.filmes.FuncionCompararLlavePrincipal = CompararNombreC;
+            db.filmes.FuncionCompararLlave = CompararGenero;
+
             if (contenido.Tipo == "Documental")
-            {
-                db.Docu_Nombre.FuncionObtenerLlavePrincipal = ObtenerNombreC;
-                db.Docu_Nombre.FuncionObtenerLlave = ObtenerGenero;
-                db.Docu_Nombre.FuncionCompararLlavePrincipal = CompararNombreC;
-                db.Docu_Nombre.FuncionCompararLlave = CompararGenero;
-
-                db.Docu_Genero.FuncionObtenerLlavePrincipal = ObtenerGenero;
-                db.Docu_Genero.FuncionObtenerLlave = ObtenerNombreC;
-                db.Docu_Genero.FuncionCompararLlavePrincipal = CompararGenero;
-                db.Docu_Genero.FuncionCompararLlave = CompararNombreC;
-
-                db.Docu_Anio.FuncionObtenerLlavePrincipal = ObtenerAnio;
-                db.Docu_Anio.FuncionObtenerLlave = ObtenerNombreC;
-                db.Docu_Anio.FuncionCompararLlavePrincipal = CompararAnio;
-                db.Docu_Anio.FuncionCompararLlave = CompararNombreC;
-
-                db.filmes.FuncionObtenerLlavePrincipal = ObtenerNombreC;
-                db.filmes.FuncionObtenerLlave = ObtenerGenero;
-                db.filmes.FuncionCompararLlavePrincipal = CompararNombreC;
-                db.filmes.FuncionCompararLlave = CompararGenero;
-
+            {                
+               
                 db.filmes.Insertar(contenido);
-                db.Docu_Nombre.Insertar(contenido);
-                db.Docu_Genero.Insertar(contenido);
-                db.Docu_Anio.Insertar(contenido);
-
+                
             }
             else if (contenido.Tipo == "Serie")
             {
-                db.Series_Nombre.FuncionObtenerLlavePrincipal = ObtenerNombreC;
-                db.Series_Nombre.FuncionObtenerLlave = ObtenerGenero;
-                db.Series_Nombre.FuncionCompararLlavePrincipal = CompararNombreC;
-                db.Series_Nombre.FuncionCompararLlave = CompararGenero;
-
-                db.Series_Genero.FuncionObtenerLlavePrincipal = ObtenerGenero;
-                db.Series_Genero.FuncionObtenerLlave = ObtenerNombreC;
-                db.Series_Genero.FuncionCompararLlavePrincipal = CompararGenero;
-                db.Series_Genero.FuncionCompararLlave = CompararNombreC;
-
-                db.Series_Anio.FuncionObtenerLlavePrincipal = ObtenerAnio;
-                db.Series_Anio.FuncionObtenerLlave = ObtenerNombreC;
-                db.Series_Anio.FuncionCompararLlavePrincipal = CompararAnio;
-                db.Series_Anio.FuncionCompararLlave = CompararNombreC;
-
-                db.filmes.FuncionObtenerLlavePrincipal = ObtenerNombreC;
-                db.filmes.FuncionObtenerLlave = ObtenerGenero;
-                db.filmes.FuncionCompararLlavePrincipal = CompararNombreC;
-                db.filmes.FuncionCompararLlave = CompararGenero;
-
+              
                 db.filmes.Insertar(contenido);
-                db.Series_Nombre.Insertar(contenido);
-                db.Series_Genero.Insertar(contenido);
-                db.Series_Anio.Insertar(contenido);
-
+               
             }
             else if (contenido.Tipo == "Pelicula")
             {
-                db.Peliculas_Nombre.FuncionObtenerLlavePrincipal = ObtenerNombreC;
-                db.Peliculas_Nombre.FuncionObtenerLlave = ObtenerGenero;
-                db.Peliculas_Nombre.FuncionCompararLlavePrincipal = CompararNombreC;
-                db.Peliculas_Nombre.FuncionCompararLlave = CompararGenero;
-
-                db.Peliculas_Genero.FuncionObtenerLlavePrincipal = ObtenerGenero;
-                db.Peliculas_Genero.FuncionObtenerLlave = ObtenerNombreC;
-                db.Peliculas_Genero.FuncionCompararLlavePrincipal = CompararGenero;
-                db.Peliculas_Genero.FuncionCompararLlave = CompararNombreC;
-
-                db.Peliculas_Anio.FuncionObtenerLlavePrincipal = ObtenerAnio;
-                db.Peliculas_Anio.FuncionObtenerLlave = ObtenerNombreC;
-                db.Peliculas_Anio.FuncionCompararLlavePrincipal = CompararAnio;
-                db.Peliculas_Anio.FuncionCompararLlave = CompararNombreC;
-
-                db.filmes.FuncionObtenerLlavePrincipal = ObtenerNombreC;
-                db.filmes.FuncionObtenerLlave = ObtenerGenero;
-                db.filmes.FuncionCompararLlavePrincipal = CompararNombreC;
-                db.filmes.FuncionCompararLlave = CompararGenero;
-
+  
                 db.filmes.Insertar(contenido);
-                db.Peliculas_Nombre.Insertar(contenido);
-                db.Peliculas_Genero.Insertar(contenido);
-                db.Peliculas_Anio.Insertar(contenido);
+             
             }
 
         }
