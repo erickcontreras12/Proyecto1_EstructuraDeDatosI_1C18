@@ -1,0 +1,88 @@
+[{
+	"Nombre":"Avengers",
+	"Tipo":"Pelicula",
+	"Genero":"Accion",
+	"Anio_Lanzamiento":"2018"
+},{
+	"Nombre":"Star Wars: Episodio I - La Amenaza Fantasma",
+	"Tipo":"Pelicula",
+	"Genero":"Ciencia ficcion",
+	"Anio_Lanzamiento":"1999"
+},{
+	"Nombre":"Star Wars: Episodio II - El Ataque de los Clones",
+	"Tipo":"Pelicula",
+	"Genero":"Ciencia ficcion",
+	"Anio_Lanzamiento":"2002"
+},{
+	"Nombre":"Star Wars: Episodio III - La Venganza de los Sith",
+	"Tipo":"Pelicula",
+	"Genero":"Ciencia ficcion",
+	"Anio_Lanzamiento":"2005"
+},
+{
+	"Nombre":"Star Wars: Episodio IV - Una Nueva Esperanza",
+	"Tipo":"Pelicula",
+	"Genero":"Ciencia ficcion",
+	"Anio_Lanzamiento":"1977"
+},
+{
+	"Nombre":"Star Wars: Episodio V - El Imperio Contraataca",
+	"Tipo":"Pelicula",
+	"Genero":"Ciencia ficcion",
+	"Anio_Lanzamiento":"1980"
+},
+{
+	"Nombre":"Star Wars: Episodio VI - El Regreso del Jedi",
+	"Tipo":"Pelicula",
+	"Genero":"Ciencia ficcion",
+	"Anio_Lanzamiento":"1983"
+},
+{
+	"Nombre":"Star Wars: Episodio VII - El Despertar de la Fuerza",
+	"Tipo":"Pelicula",
+	"Genero":"Ciencia ficcion",
+	"Anio_Lanzamiento":"2015"
+},
+{
+	"Nombre":"Star Wars: Episodio VIII - Los Ultimos Jedi",
+	"Tipo":"Pelicula",
+	"Genero":"Ciencia ficcion",
+	"Anio_Lanzamiento":"2017"
+},{
+	"Nombre":"El Hombre de Acero",
+	"Tipo":"Pelicula",
+	"Genero":"Ficcion superheroes",
+	"Anio_Lanzamiento":"2013"
+},{
+	"Nombre":"El caballero oscuro",
+	"Tipo":"Pelicula",
+	"Genero":"Ficcion superheroes",
+	"Anio_Lanzamiento":"2008"
+},
+{
+	"Nombre":"El caballero oscuro: la leyenda renace",
+	"Tipo":"Pelicula",
+	"Genero":"Ficcion superheroes",
+	"Anio_Lanzamiento":"2012"
+},{
+	"Nombre":"El gran showman",
+	"Tipo":"Pelicula",
+	"Genero":"Fantasia",
+	"Anio_Lanzamiento":"2017"
+},{
+	"Nombre":"Un suenio posible",
+	"Tipo":"Pelicula",
+	"Genero":"Deporte",
+	"Anio_Lanzamiento":"2009"
+},{
+	"Nombre":"El rey escorpion",
+	"Tipo":"Pelicula",
+	"Genero":"Aventura",
+	"Anio_Lanzamiento":"2002"
+},
+{
+	"Nombre":"Rapido y furioso",
+	"Tipo":"Pelicula",
+	"Genero":"Accion",
+	"Anio_Lanzamiento":"2001"
+}]

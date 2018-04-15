@@ -16,13 +16,13 @@
 	"Anio_Lanzamiento":"2014"
 },
 {
-	"Nombre":"Star Wars: Episodio I - La Amenaza Fantasma",
+	"Nombre":"Star Wars Episodio I La Amenaza Fantasma",
 	"Tipo":"Pelicula",
 	"Genero":"Ciencia ficcion",
 	"Anio_Lanzamiento":"1999"
 },
 {
-	"Nombre":"Star Wars: Episodio II - El Ataque de los Clones",
+	"Nombre":"Star Wars Episodio II El Ataque de los Clones",
 	"Tipo":"Pelicula",
 	"Genero":"Ciencia ficcion",
 	"Anio_Lanzamiento":"2002"
@@ -34,25 +34,25 @@
 	"Anio_Lanzamiento":"2012"
 },
 {
-	"Nombre":"Star Wars: Episodio III - La Venganza de los Sith",
+	"Nombre":"Star Wars Episodio III - La Venganza de los Sith",
 	"Tipo":"Pelicula",
 	"Genero":"Ciencia ficcion",
 	"Anio_Lanzamiento":"2005"
 },
 {
-	"Nombre":"Star Wars: Episodio IV - Una Nueva Esperanza",
+	"Nombre":"Star Wars: Episodio IV Una Nueva Esperanza",
 	"Tipo":"Pelicula",
 	"Genero":"Ciencia ficcion",
 	"Anio_Lanzamiento":"1977"
 },
 {
-	"Nombre":"Star Wars: Episodio V - El Imperio Contraataca",
+	"Nombre":"Star Wars Episodio V El Imperio Contraataca",
 	"Tipo":"Pelicula",
 	"Genero":"Ciencia ficcion",
 	"Anio_Lanzamiento":"1980"
 },
 {
-	"Nombre":"Star Wars: Episodio VI - El Regreso del Jedi",
+	"Nombre":"Star Wars Episodio VI El Regreso del Jedi",
 	"Tipo":"Pelicula",
 	"Genero":"Ciencia ficcion",
 	"Anio_Lanzamiento":"1983"
@@ -64,13 +64,13 @@
 	"Anio_Lanzamiento":"2018"
 },
 {
-	"Nombre":"Star Wars: Episodio VII - El Despertar de la Fuerza",
+	"Nombre":"Star Wars Episodio VII El Despertar de la Fuerza",
 	"Tipo":"Pelicula",
 	"Genero":"Ciencia ficcion",
 	"Anio_Lanzamiento":"2015"
 },
 {
-	"Nombre":"Star Wars: Episodio VIII - Los Ultimos Jedi",
+	"Nombre":"Star Wars Episodio VIII - Los Ultimos Jedi",
 	"Tipo":"Pelicula",
 	"Genero":"Ciencia ficcion",
 	"Anio_Lanzamiento":"2017"
@@ -88,13 +88,13 @@
 	"Anio_Lanzamiento":"2013"
 },
 {
-	"Nombre":"El cerebro humano, un enigma para la ciencia",
+	"Nombre":"El cerebro humano un enigma para la ciencia",
 	"Tipo":"Documental",
 	"Genero":"Ciencia",
 	"Anio_Lanzamiento":"2015"
 },
 {
-	"Nombre":"DC's Legends of Tomorrow",
+	"Nombre":"DCs Legends of Tomorrow",
 	"Tipo":"Serie",
 	"Genero":"Ficcion superheroes",
 	"Anio_Lanzamiento":"2016"
@@ -118,7 +118,7 @@
 	"Anio_Lanzamiento":"2004"
 },
 {
-	"Nombre":"USS Constellation, la lucha por la libertad",
+	"Nombre":"USS Constellation la lucha por la libertad",
 	"Tipo":"Documental",
 	"Genero":"Historia",
 	"Anio_Lanzamiento":"2015"
@@ -148,6 +148,25 @@
 	"Anio_Lanzamiento":"2013"
 },
 {
+	"Nombre":"Pearl Harbor anios despues",
+	"Tipo":"Documental",
+	"Genero":"Historia",
+	"Anio_Lanzamiento":"2018"
+},
+
+{
+	"Nombre":"Agentes de SHIELD",
+	"Tipo":"Serie",
+	"Genero":"Accion",
+	"Anio_Lanzamiento":"2013"
+},
+{
+	"Nombre":"El gran showman",
+	"Tipo":"Pelicula",
+	"Genero":"Fantasia",
+	"Anio_Lanzamiento":"2017"
+},
+{
 	"Nombre":"Narcos",
 	"Tipo":"Serie",
 	"Genero":"Crimen",
@@ -170,6 +189,12 @@
 	"Tipo":"Serie",
 	"Genero":"Misterio",
 	"Anio_Lanzamiento":"2016"
+},
+{
+	"Nombre":"El rey escorpion",
+	"Tipo":"Pelicula",
+	"Genero":"Aventura",
+	"Anio_Lanzamiento":"2002"
 },
 {
 	"Nombre":"Rapido y furioso",
@@ -208,25 +233,25 @@
 	"Anio_Lanzamiento":"2009"
 },
 {
-	"Nombre":"Rapidos y furiosos: 5in control",
+	"Nombre":"Rapidos y furiosos cinco control",
 	"Tipo":"Pelicula",
 	"Genero":"Accion",
 	"Anio_Lanzamiento":"2011"
 },
 {
-	"Nombre":"Rapidos y furiosos 6",
+	"Nombre":"Rapidos y furiosos seis",
 	"Tipo":"Pelicula",
 	"Genero":"Accion",
 	"Anio_Lanzamiento":"2013"
 },
 {
-	"Nombre":"Rapidos y furiosos 7",
+	"Nombre":"Rapidos y furiosos Siete",
 	"Tipo":"Pelicula",
 	"Genero":"Accion",
 	"Anio_Lanzamiento":"2015"
 },
 {
-	"Nombre":"Rapidos y furiosos 8",
+	"Nombre":"Rapidos y furiosos ocho",
 	"Tipo":"Pelicula",
 	"Genero":"Accion",
 	"Anio_Lanzamiento":"2017"
@@ -250,7 +275,7 @@
 	"Anio_Lanzamiento":"2017"
 },
 {
-	"Nombre":"CSI: Miami",
+	"Nombre":"CSI Miami",
 	"Tipo":"Serie",
 	"Genero":"Crimen",
 	"Anio_Lanzamiento":"2002"
@@ -316,13 +341,13 @@
 	"Anio_Lanzamiento":"1972"
 },
 {
-	"Nombre":"El Padrino II",
+	"Nombre":"El Padrino dos",
 	"Tipo":"Pelicula",
 	"Genero":"Crimen",
 	"Anio_Lanzamiento":"1974"
 },
 {
-	"Nombre":"El Padrino III",
+	"Nombre":"El Padrino tres",
 	"Tipo":"Pelicula",
 	"Genero":"Crimen",
 	"Anio_Lanzamiento":"1990"
@@ -614,11 +639,5 @@
 	"Tipo":"Serie",
 	"Genero":"Aventura",
 	"Anio_Lanzamiento":"2005"
-},
-{
-	"Nombre":"",
-	"Tipo":"",
-	"Genero":"",
-	"Anio_Lanzamiento":""
-},
+}
 ]

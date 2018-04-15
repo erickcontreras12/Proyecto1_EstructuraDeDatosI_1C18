@@ -33,6 +33,7 @@ namespace ProyectoED1.Controllers
         {
             db.filmes.Insertados.Add(actual.valor);
         }
+        Contenido ex;
         [HttpPost]
         public ActionResult Carga(HttpPostedFileBase postedFile)
         {
@@ -65,6 +66,7 @@ namespace ProyectoED1.Controllers
                         {
                           
                             Contenido y = JsonConvert.DeserializeObject<Contenido>(jsonOperaciones.ToString());
+                            ex = y;
                             Insertar(y);                            
                             break;
                            
@@ -78,7 +80,7 @@ namespace ProyectoED1.Controllers
                 catch(Exception e)
                 {
 
-                    ViewBag.Message1 = "Dato erroneo.";
+                    ViewBag.Message1 = "Dato erroneo."+ex.Nombre;
                 }
             }
                 return View();
@@ -111,9 +113,9 @@ namespace ProyectoED1.Controllers
                 db.filmes.FuncionCompararLlave = CompararGenero;
 
                 db.filmes.Insertar(contenido);
-                db.Docu_Nombre.Insertar(contenido);
-                db.Docu_Genero.Insertar(contenido);
-                db.Docu_Anio.Insertar(contenido);
+                //db.Docu_Nombre.Insertar(contenido);
+                //db.Docu_Genero.Insertar(contenido);
+                //db.Docu_Anio.Insertar(contenido);
                 
             }
             else if (contenido.Tipo == "Serie")
@@ -139,9 +141,9 @@ namespace ProyectoED1.Controllers
                 db.filmes.FuncionCompararLlave = CompararGenero;
 
                 db.filmes.Insertar(contenido);
-                db.Series_Nombre.Insertar(contenido);
-                db.Series_Genero.Insertar(contenido);
-                db.Series_Anio.Insertar(contenido);
+                //db.Series_Nombre.Insertar(contenido);
+                //db.Series_Genero.Insertar(contenido);
+                //db.Series_Anio.Insertar(contenido);
                 
             }
             else if (contenido.Tipo == "Pelicula")
@@ -167,9 +169,9 @@ namespace ProyectoED1.Controllers
                 db.filmes.FuncionCompararLlave = CompararGenero;
 
                 db.filmes.Insertar(contenido);
-                db.Peliculas_Nombre.Insertar(contenido);
-                db.Peliculas_Genero.Insertar(contenido);
-                db.Peliculas_Anio.Insertar(contenido);                
+                //db.Peliculas_Nombre.Insertar(contenido);
+                //db.Peliculas_Genero.Insertar(contenido);
+                //db.Peliculas_Anio.Insertar(contenido);                
             }
 
         }
