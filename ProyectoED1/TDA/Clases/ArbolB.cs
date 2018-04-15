@@ -571,13 +571,11 @@ namespace TDA.Clases
                             if (aux.valores[0] == dato)
                             {
                                 asignarHijos(aux.valores, ind);
-                                encontrado = true;
                             }
                         }
                         else
                         {
                             asignarHijos(aux.valores, ind);
-                            encontrado = true;
                         }
                         break;
                     }

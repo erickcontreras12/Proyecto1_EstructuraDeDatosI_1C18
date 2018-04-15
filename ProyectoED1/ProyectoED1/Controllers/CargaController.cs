@@ -33,6 +33,7 @@ namespace ProyectoED1.Controllers
         {
             db.filmes.Insertados.Add(actual.valor);
         }
+        Contenido ex;
         [HttpPost]
         public ActionResult Carga(HttpPostedFileBase postedFile)
         {
@@ -65,6 +66,11 @@ namespace ProyectoED1.Controllers
                         {
                           
                             Contenido y = JsonConvert.DeserializeObject<Contenido>(jsonOperaciones.ToString());
+                            ex = y;
+                            if (ex.Nombre== "Pearl Harbor 75 anios despues")
+                            {
+                                Insertar(ex);
+                            }
                             Insertar(y);                            
                             break;
                            
