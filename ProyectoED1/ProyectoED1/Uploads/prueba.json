@@ -1,0 +1,655 @@
+[{
+	"Nombre":"Avengers",
+	"Tipo":"Pelicula",
+	"Genero":"Accion",
+	"Anio_Lanzamiento":"2018"
+},
+{
+	"Nombre":"HIMYM",
+	"Tipo":"Serie",
+	"Genero":"Comedia",
+	"Anio_Lanzamiento":"2015"
+},
+{"Nombre":"Nat Geo",
+	"Tipo":"Documental",
+	"Genero":"Ciencia",
+	"Anio_Lanzamiento":"2014"
+},
+{
+	"Nombre":"Star Wars: Episodio I - La Amenaza Fantasma",
+	"Tipo":"Pelicula",
+	"Genero":"Ciencia ficcion",
+	"Anio_Lanzamiento":"1999"
+},
+{
+	"Nombre":"Star Wars: Episodio II - El Ataque de los Clones",
+	"Tipo":"Pelicula",
+	"Genero":"Ciencia ficcion",
+	"Anio_Lanzamiento":"2002"
+},
+{
+	"Nombre":"Arrow",
+	"Tipo":"Serie",
+	"Genero":"Accion",
+	"Anio_Lanzamiento":"2012"
+},
+{
+	"Nombre":"Star Wars: Episodio III - La Venganza de los Sith",
+	"Tipo":"Pelicula",
+	"Genero":"Ciencia ficcion",
+	"Anio_Lanzamiento":"2005"
+},
+{
+	"Nombre":"Star Wars: Episodio IV - Una Nueva Esperanza",
+	"Tipo":"Pelicula",
+	"Genero":"Ciencia ficcion",
+	"Anio_Lanzamiento":"1977"
+},
+{
+	"Nombre":"Star Wars: Episodio V - El Imperio Contraataca",
+	"Tipo":"Pelicula",
+	"Genero":"Ciencia ficcion",
+	"Anio_Lanzamiento":"1980"
+},
+{
+	"Nombre":"Star Wars: Episodio VI - El Regreso del Jedi",
+	"Tipo":"Pelicula",
+	"Genero":"Ciencia ficcion",
+	"Anio_Lanzamiento":"1983"
+},
+{
+	"Nombre":"Monstruos de la genetica",
+	"Tipo":"Documental",
+	"Genero":"Historia",
+	"Anio_Lanzamiento":"2018"
+},
+{
+	"Nombre":"Star Wars: Episodio VII - El Despertar de la Fuerza",
+	"Tipo":"Pelicula",
+	"Genero":"Ciencia ficcion",
+	"Anio_Lanzamiento":"2015"
+},
+{
+	"Nombre":"Star Wars: Episodio VIII - Los Ultimos Jedi",
+	"Tipo":"Pelicula",
+	"Genero":"Ciencia ficcion",
+	"Anio_Lanzamiento":"2017"
+},
+{
+	"Nombre":"The Flash",
+	"Tipo":"Serie",
+	"Genero":"Ficcion superheroes",
+	"Anio_Lanzamiento":"2014"
+},
+{
+	"Nombre":"El Hombre de Acero",
+	"Tipo":"Pelicula",
+	"Genero":"Ficcion superheroes",
+	"Anio_Lanzamiento":"2013"
+},
+{
+	"Nombre":"El cerebro humano, un enigma para la ciencia",
+	"Tipo":"Documental",
+	"Genero":"Ciencia",
+	"Anio_Lanzamiento":"2015"
+},
+{
+	"Nombre":"DC's Legends of Tomorrow",
+	"Tipo":"Serie",
+	"Genero":"Ficcion superheroes",
+	"Anio_Lanzamiento":"2016"
+},
+{
+	"Nombre":"El caballero oscuro",
+	"Tipo":"Pelicula",
+	"Genero":"Ficcion superheroes",
+	"Anio_Lanzamiento":"2008"
+},
+{
+	"Nombre":"El caballero oscuro: la leyenda renace",
+	"Tipo":"Pelicula",
+	"Genero":"Ficcion superheroes",
+	"Anio_Lanzamiento":"2012"
+},
+{
+	"Nombre":"Gotham",
+	"Tipo":"Serie",
+	"Genero":"Drama",
+	"Anio_Lanzamiento":"2014"
+},
+{
+	"Nombre":"Drake and Josh",
+	"Tipo":"Serie",
+	"Genero":"Comedia",
+	"Anio_Lanzamiento":"2004"
+},
+{
+	"Nombre":"USS Constellation, la lucha por la libertad",
+	"Tipo":"Documental",
+	"Genero":"Historia",
+	"Anio_Lanzamiento":"2015"
+},
+{
+	"Nombre":"Two and a Half Men",
+	"Tipo":"Serie",
+	"Genero":"Comedia",
+	"Anio_Lanzamiento":"2003"
+},
+{
+	"Nombre":"Supergirl",
+	"Tipo":"Serie",
+	"Genero":"Ficcion superheroes",
+	"Anio_Lanzamiento":"2015"
+},
+{
+	"Nombre":"Supernatural",
+	"Tipo":"Serie",
+	"Genero":"Misterio",
+	"Anio_Lanzamiento":"2005"
+},
+{
+	"Nombre":"Vikingos",
+	"Tipo":"Serie",
+	"Genero":"Aventura",
+	"Anio_Lanzamiento":"2013"
+},
+{
+	"Nombre":"Pearl Harbor 75 anios despues",
+	"Tipo":"Documental",
+	"Genero":"Historia",
+	"Anio_Lanzamiento":"2018"
+},
+
+{
+	"Nombre":"Agentes de SHIELD",
+	"Tipo":"Serie",
+	"Genero":"Accion",
+	"Anio_Lanzamiento":"2013"
+},
+{
+	"Nombre":"El gran showman",
+	"Tipo":"Pelicula",
+	"Genero":"Fantasia",
+	"Anio_Lanzamiento":"2017"
+},
+{
+	"Nombre":"Narcos",
+	"Tipo":"Serie",
+	"Genero":"Crimen",
+	"Anio_Lanzamiento":"2015"
+},
+{
+	"Nombre":"Combate en Manila",
+	"Tipo":"Documental",
+	"Genero":"Deporte",
+	"Anio_Lanzamiento":"2012"
+},
+{
+	"Nombre":"Un suenio posible",
+	"Tipo":"Pelicula",
+	"Genero":"Deporte",
+	"Anio_Lanzamiento":"2009"
+},
+{
+	"Nombre":"Stranger Things",
+	"Tipo":"Serie",
+	"Genero":"Misterio",
+	"Anio_Lanzamiento":"2016"
+},
+{
+	"Nombre":"El rey escorpion",
+	"Tipo":"Pelicula",
+	"Genero":"Aventura",
+	"Anio_Lanzamiento":"2002"
+},
+{
+	"Nombre":"Rapido y furioso",
+	"Tipo":"Pelicula",
+	"Genero":"Accion",
+	"Anio_Lanzamiento":"2001"
+},
+{
+	"Nombre":"MASH",
+	"Tipo":"Serie",
+	"Genero":"Historia",
+	"Anio_Lanzamiento":"1972"
+},
+{
+	"Nombre":"Deadwood",
+	"Tipo":"Serie",
+	"Genero":"Historia",
+	"Anio_Lanzamiento":"2004"
+},
+{
+	"Nombre":"Mas rapidos y mas furiosos",
+	"Tipo":"Pelicula",
+	"Genero":"Accion",
+	"Anio_Lanzamiento":"2003"
+},
+{
+	"Nombre":"Rapido y furioso: Reto Tokio",
+	"Tipo":"Pelicula",
+	"Genero":"Accion",
+	"Anio_Lanzamiento":"2006"
+},
+{
+	"Nombre":"Rapidos y furiosos",
+	"Tipo":"Pelicula",
+	"Genero":"Accion",
+	"Anio_Lanzamiento":"2009"
+},
+{
+	"Nombre":"Rapidos y furiosos: 5in control",
+	"Tipo":"Pelicula",
+	"Genero":"Accion",
+	"Anio_Lanzamiento":"2011"
+},
+{
+	"Nombre":"Rapidos y furiosos 6",
+	"Tipo":"Pelicula",
+	"Genero":"Accion",
+	"Anio_Lanzamiento":"2013"
+},
+{
+	"Nombre":"Rapidos y furiosos 7",
+	"Tipo":"Pelicula",
+	"Genero":"Accion",
+	"Anio_Lanzamiento":"2015"
+},
+{
+	"Nombre":"Rapidos y furiosos 8",
+	"Tipo":"Pelicula",
+	"Genero":"Accion",
+	"Anio_Lanzamiento":"2017"
+},
+{
+	"Nombre":"Smallville",
+	"Tipo":"Serie",
+	"Genero":"Aventura",
+	"Anio_Lanzamiento":"2001"
+},
+{
+	"Nombre":"The Witness",
+	"Tipo":"Documental",
+	"Genero":"Crimen",
+	"Anio_Lanzamiento":"2016"
+},
+{
+	"Nombre":"Eso",
+	"Tipo":"Pelicula",
+	"Genero":"Terror",
+	"Anio_Lanzamiento":"2017"
+},
+{
+	"Nombre":"CSI: Miami",
+	"Tipo":"Serie",
+	"Genero":"Crimen",
+	"Anio_Lanzamiento":"2002"
+},
+{
+	"Nombre":"La niebla",
+	"Tipo":"Pelicula",
+	"Genero":"Terror",
+	"Anio_Lanzamiento":"2007"
+},
+{
+	"Nombre":"Carrie",
+	"Tipo":"Pelicula",
+	"Genero":"Terror",
+	"Anio_Lanzamiento":"1976"
+},
+{
+	"Nombre":"El resplandor",
+	"Tipo":"Pelicula",
+	"Genero":"Terror",
+	"Anio_Lanzamiento":"1980"
+},
+{
+	"Nombre":"El cazador de suenios",
+	"Tipo":"Pelicula",
+	"Genero":"Suspenso",
+	"Anio_Lanzamiento":"2003"
+},
+{
+	"Nombre":"Conspiracion extraterrestre",
+	"Tipo":"Documental",
+	"Genero":"Ciencia",
+	"Anio_Lanzamiento":"2018"
+},
+{
+	"Nombre":"La ventana secreta",
+	"Tipo":"Pelicula",
+	"Genero":"Misterio",
+	"Anio_Lanzamiento":"2004"
+},
+{
+	"Nombre":"It",
+	"Tipo":"Pelicula",
+	"Genero":"Terror",
+	"Anio_Lanzamiento":"1980"
+},
+{
+	"Nombre":"The Big Bang Theory",
+	"Tipo":"Serie",
+	"Genero":"Comedia",
+	"Anio_Lanzamiento":"2007"
+},
+{
+	"Nombre":"El club de los cinco",
+	"Tipo":"Pelicula",
+	"Genero":"Comedia",
+	"Anio_Lanzamiento":"1985"
+},
+{
+	"Nombre":"El Padrino",
+	"Tipo":"Pelicula",
+	"Genero":"Crimen",
+	"Anio_Lanzamiento":"1972"
+},
+{
+	"Nombre":"El Padrino II",
+	"Tipo":"Pelicula",
+	"Genero":"Crimen",
+	"Anio_Lanzamiento":"1974"
+},
+{
+	"Nombre":"El Padrino III",
+	"Tipo":"Pelicula",
+	"Genero":"Crimen",
+	"Anio_Lanzamiento":"1990"
+},
+{
+	"Nombre":"Persiguiendo el hielo",
+	"Tipo":"Documental",
+	"Genero":"Biografia",
+	"Anio_Lanzamiento":"2012"
+},
+{
+	"Nombre":"El principe de Bel Air",
+	"Tipo":"Serie",
+	"Genero":"Comedia",
+	"Anio_Lanzamiento":"1990"
+},
+{
+	"Nombre":"The Human Experiment",
+	"Tipo":"Documental",
+	"Genero":"Documental",
+	"Anio_Lanzamiento":"2013"
+},
+{
+	"Nombre":"Last Chance U",
+	"Tipo":"Documental",
+	"Genero":"Deporte",
+	"Anio_Lanzamiento":"2016"
+},
+{
+	"Nombre":"Anatomia segun Grey",
+	"Tipo":"Serie",
+	"Genero":"Drama",
+	"Anio_Lanzamiento":"2005"
+},
+{
+	"Nombre":"La momia",
+	"Tipo":"Pelicula",
+	"Genero":"Aventura",
+	"Anio_Lanzamiento":"1999"
+},
+{
+	"Nombre":"El quinto elemento",
+	"Tipo":"Pelicula",
+	"Genero":"Fantasia",
+	"Anio_Lanzamiento":"1997"
+},
+{
+	"Nombre":"Armageddon",
+	"Tipo":"Pelicula",
+	"Genero":"Suspenso",
+	"Anio_Lanzamiento":"1998"
+},
+{
+	"Nombre":"Jack Reacher",
+	"Tipo":"Pelicula",
+	"Genero":"Misterio",
+	"Anio_Lanzamiento":"2012"
+},
+{
+	"Nombre":"Oblivion",
+	"Tipo":"Pelicula",
+	"Genero":"Accion",
+	"Anio_Lanzamiento":"2013"
+},
+{
+	"Nombre":"El ultimo samurai",
+	"Tipo":"Pelicula",
+	"Genero":"Accion",
+	"Anio_Lanzamiento":"2003"
+},
+{
+	"Nombre":"Sospechoso cero",
+	"Tipo":"Pelicula",
+	"Genero":"Suspenso",
+	"Anio_Lanzamiento":"2004"
+},
+{
+	"Nombre":"Mision imposible",
+	"Tipo":"Pelicula",
+	"Genero":"Accion",
+	"Anio_Lanzamiento":"1996"
+},
+{
+	"Nombre":"The 100",
+	"Tipo":"Serie",
+	"Genero":"Aventura",
+	"Anio_Lanzamiento":"2014"
+},
+{
+	"Nombre":"En busqueda de la felicidad",
+	"Tipo":"Pelicula",
+	"Genero":"Biografia",
+	"Anio_Lanzamiento":"2006"
+},
+{
+	"Nombre":"Escuadron suicida",
+	"Tipo":"Pelicula",
+	"Genero":"Ficcion superheroes",
+	"Anio_Lanzamiento":"2016"
+},
+{
+	"Nombre":"Dark",
+	"Tipo":"Serie",
+	"Genero":"Drama",
+	"Anio_Lanzamiento":"2017"
+},
+{
+	"Nombre":"Punisher",
+	"Tipo":"Serie",
+	"Genero":"Crimen",
+	"Anio_Lanzamiento":"2017"
+},
+{
+	"Nombre":"Soy leyenda",
+	"Tipo":"Pelicula",
+	"Genero":"Suspenso",
+	"Anio_Lanzamiento":"2007"
+},
+{
+	"Nombre":"Focus",
+	"Tipo":"Pelicula",
+	"Genero":"Drama",
+	"Anio_Lanzamiento":"2015"
+},
+{
+	"Nombre":"Siete almas",
+	"Tipo":"Pelicula",
+	"Genero":"Drama",
+	"Anio_Lanzamiento":"2008"
+},
+{
+	"Nombre":"Yo robot",
+	"Tipo":"Pelicula",
+	"Genero":"Suspenso",
+	"Anio_Lanzamiento":"2004"
+},
+{
+	"Nombre":"Dos policias rebeldes",
+	"Tipo":"Pelicula",
+	"Genero":"Suspenso",
+	"Anio_Lanzamiento":"1995"
+},
+{
+	"Nombre":"Hombres de negro",
+	"Tipo":"Pelicula",
+	"Genero":"Misterio",
+	"Anio_Lanzamiento":"1997"
+},
+{
+	"Nombre":"Hancock",
+	"Tipo":"Pelicula",
+	"Genero":"Fantasia",
+	"Anio_Lanzamiento":"2008"
+},
+{
+	"Nombre":"Dia de independecia",
+	"Tipo":"Pelicula",
+	"Genero":"Suspenso",
+	"Anio_Lanzamiento":"1996"
+},
+{
+	"Nombre":"Despues de la tierra",
+	"Tipo":"Pelicula",
+	"Genero":"Accion",
+	"Anio_Lanzamiento":"2013"
+},
+{
+	"Nombre":"Enemigo publico",
+	"Tipo":"Pelicula",
+	"Genero":"Drama",
+	"Anio_Lanzamiento":"1998"
+},
+{
+	"Nombre":"Karate Kid",
+	"Tipo":"Pelicula",
+	"Genero":"Deporte",
+	"Anio_Lanzamiento":"2010"
+},
+{
+	"Nombre":"The Defenders",
+	"Tipo":"Serie",
+	"Genero":"Ficcion superheroes",
+	"Anio_Lanzamiento":"2017"
+},
+{
+	"Nombre":"Titanic",
+	"Tipo":"Pelicula",
+	"Genero":"Drama",
+	"Anio_Lanzamiento":"1997"
+},
+{
+	"Nombre":"Forrest Gump",
+	"Tipo":"Pelicula",
+	"Genero":"Drama",
+	"Anio_Lanzamiento":"1994"
+},
+{
+	"Nombre":"El mago de Oz",
+	"Tipo":"Pelicula",
+	"Genero":"Fantasia",
+	"Anio_Lanzamiento":"1939"
+},
+{
+	"Nombre":"Titanic momentos finales",
+	"Tipo":"Documental",
+	"Genero":"Historia",
+	"Anio_Lanzamiento":"2012"
+},
+{
+	"Nombre":"Scorpion",
+	"Tipo":"Serie",
+	"Genero":"Crimen",
+	"Anio_Lanzamiento":"2014"
+},
+{
+	"Nombre":"El Che Guevara",
+	"Tipo":"Documental",
+	"Genero":"Biografia",
+	"Anio_Lanzamiento":"2008"
+},
+{
+	"Nombre":"Gladiador",
+	"Tipo":"Pelicula",
+	"Genero":"Accion",
+	"Anio_Lanzamiento":"2000"
+},
+{
+	"Nombre":"La pasion de Cristo",
+	"Tipo":"Pelicula",
+	"Genero":"Drama",
+	"Anio_Lanzamiento":"2004"
+},
+{
+	"Nombre":"Noche en el museo",
+	"Tipo":"Pelicula",
+	"Genero":"Fantasia",
+	"Anio_Lanzamiento":"2006"
+},
+{
+	"Nombre":"Jumanji",
+	"Tipo":"Pelicula",
+	"Genero":"Fantasia",
+	"Anio_Lanzamiento":"1995"
+},
+{
+	"Nombre":"Starsky y Hutch",
+	"Tipo":"Pelicula",
+	"Genero":"Crimen",
+	"Anio_Lanzamiento":"2004"
+},
+{
+	"Nombre":"Grimm",
+	"Tipo":"Serie",
+	"Genero":"Fantasia",
+	"Anio_Lanzamiento":"2011"
+},
+{
+	"Nombre":"Hannibal",
+	"Tipo":"Serie",
+	"Genero":"Drama",
+	"Anio_Lanzamiento":"2013"
+},
+{
+	"Nombre":"Pearl Harbor",
+	"Tipo":"Pelicula",
+	"Genero":"Drama",
+	"Anio_Lanzamiento":"2001"
+},
+{
+	"Nombre":"Daredevil",
+	"Tipo":"Pelicula",
+	"Genero":"Fantasia",
+	"Anio_Lanzamiento":"2003"
+},
+{
+	"Nombre":"La Gran Muralla",
+	"Tipo":"Pelicula",
+	"Genero":"Fantasia",
+	"Anio_Lanzamiento":"2016"
+},
+{
+	"Nombre":"El asesinato de Kennedy",
+	"Tipo":"Documental",
+	"Genero":"Historia",
+	"Anio_Lanzamiento":"2012"
+},
+{
+	"Nombre":"Doctor Who",
+	"Tipo":"Serie",
+	"Genero":"Aventura",
+	"Anio_Lanzamiento":"2005"
+},
+{
+	"Nombre":"",
+	"Tipo":"",
+	"Genero":"",
+	"Anio_Lanzamiento":""
+},
+]

@@ -16,6 +16,7 @@ namespace TDA.Clases
         ObtenerKeyPrincipal<T, J> _fnObtenerLLavePrincipal;
         private int grado;
         private bool yaInsertado = false;
+        private bool encontrado = false;
         private NodoIndividual<T> nuevito;
         public List<T> Insertados = new List<T>();
 
@@ -136,7 +137,7 @@ namespace TDA.Clases
             {
                 //insertar a la lisa gg
               //  Insertados.Add(dato);
-                asignarPadres(raiz);
+                //asignarPadres(raiz);
                 yaInsertado = false;
                 nuevito = null;
             }
@@ -545,7 +546,7 @@ namespace TDA.Clases
             {
                 aux[ind - 1].derecho = aux[ind].izquierdo;
             }
-            else if ((ind != 0 && ind != aux.Length - 1) && (aux[ind - 1] != null && aux[ind + 1] != null))
+            else if (aux[ind - 1] != null && aux[ind + 1] != null)
             {
                 aux[ind + 1].izquierdo = aux[ind].derecho;
                 aux[ind - 1].derecho = aux[ind].izquierdo;
@@ -579,62 +580,64 @@ namespace TDA.Clases
                         break;
                     }
                 }
-
-
             }
 
-            for (int i = 0; i < aux.valores.Length; i++)
+            if (!encontrado)
             {
-
-                if (aux.valores[i] != null)
+                for (int i = 0; i < aux.valores.Length; i++)
                 {
-                    //si la funcion principal es igual, pasa al segundo criterio
-                    if (FuncionCompararLlavePrincipal(FuncionObtenerLlavePrincipal(aux.valores[i].valor), llaveBuscarPrincipal) == 0)
+
+                    if (aux.valores[i] != null)
                     {
-                        //Caso sea menor a la primera posicion
-                        if (i == 0 && FuncionCompararLlave(FuncionObtenerLlave(aux.valores[0].valor), llaveBuscar) > 0)
+                        //si la funcion principal es igual, pasa al segundo criterio
+                        if (FuncionCompararLlavePrincipal(FuncionObtenerLlavePrincipal(aux.valores[i].valor), llaveBuscarPrincipal) == 0)
+                        {
+                            //Caso sea menor a la primera posicion
+                            if (i == 0 && FuncionCompararLlave(FuncionObtenerLlave(aux.valores[0].valor), llaveBuscar) > 0)
+                            {
+                                buscarEnArbol(aux.valores[i].izquierdo, dato);
+                                break;
+                            }
+                            //Caso sea mayor a la ultima posicion
+                            else if ((i == aux.valores.Length - 1 || aux.valores[i + 1] == null)
+                                && FuncionCompararLlave(FuncionObtenerLlave(aux.valores[i].valor), llaveBuscar) < 0)
+                            {
+                                buscarEnArbol(aux.valores[i].derecho, dato);
+                                break;
+                            }
+                            //Caso este contenido entre dos valores
+                            else if (i < aux.valores.Length - 1 && aux.valores[i + 1] != null &&
+                                (FuncionCompararLlave(FuncionObtenerLlave(aux.valores[i].valor), llaveBuscar) < 0
+                                && FuncionCompararLlave(FuncionObtenerLlave(aux.valores[i + 1].valor), llaveBuscar) > 0))
+                            {
+                                buscarEnArbol(aux.valores[i].derecho, dato);
+                                break;
+                            }
+                        }//Caso sea menor a la primera posicion con llave principal
+                        else if (i == 0 && FuncionCompararLlavePrincipal(FuncionObtenerLlavePrincipal(aux.valores[0].valor), llaveBuscarPrincipal) > 0)
                         {
                             buscarEnArbol(aux.valores[i].izquierdo, dato);
                             break;
-                        }
-                        //Caso sea mayor a la ultima posicion
-                        else if ((i == aux.valores.Length - 1 || aux.valores[i + 1] == null)
-                            && FuncionCompararLlave(FuncionObtenerLlave(aux.valores[i].valor), llaveBuscar) < 0)
-                        {
-                            buscarEnArbol(aux.valores[i].derecho, dato);
-                            break;
-                        }
-                        //Caso este contenido entre dos valores
-                        else if (i < aux.valores.Length - 1 && aux.valores[i + 1] != null &&
-                            (FuncionCompararLlave(FuncionObtenerLlave(aux.valores[i].valor), llaveBuscar) < 0
-                            && FuncionCompararLlave(FuncionObtenerLlave(aux.valores[i + 1].valor), llaveBuscar) > 0))
-                        {
-                            buscarEnArbol(aux.valores[i].derecho, dato);
-                            break;
-                        }
-                    }//Caso sea menor a la primera posicion con llave principal
-                    else if (i == 0 && FuncionCompararLlavePrincipal(FuncionObtenerLlavePrincipal(aux.valores[0].valor), llaveBuscarPrincipal) > 0)
-                    {
-                        buscarEnArbol(aux.valores[i].izquierdo, dato);
-                        break;
 
-                    }//Caso sea mayor a la ultima posicion llena con llave principal
-                    else if ((i == aux.valores.Length - 1 || aux.valores[i + 1] == null)
-                        && FuncionCompararLlavePrincipal(FuncionObtenerLlavePrincipal(aux.valores[i].valor), llaveBuscarPrincipal) < 0)
-                    {
-                        buscarEnArbol(aux.valores[i].derecho, dato);
-                        break;
-                    }//Caso este contenido entre dos valores con llave principal
-                    else if (i < aux.valores.Length - 1 && aux.valores[i + 1] != null &&
-                        (FuncionCompararLlavePrincipal(FuncionObtenerLlavePrincipal(aux.valores[i].valor), llaveBuscarPrincipal) < 0
-                        && FuncionCompararLlavePrincipal(FuncionObtenerLlavePrincipal(aux.valores[i + 1].valor), llaveBuscarPrincipal) > 0))
-                    {
-                        buscarEnArbol(aux.valores[i].derecho, dato);
-                        break;
+                        }//Caso sea mayor a la ultima posicion llena con llave principal
+                        else if ((i == aux.valores.Length - 1 || aux.valores[i + 1] == null)
+                            && FuncionCompararLlavePrincipal(FuncionObtenerLlavePrincipal(aux.valores[i].valor), llaveBuscarPrincipal) < 0)
+                        {
+                            buscarEnArbol(aux.valores[i].derecho, dato);
+                            break;
+                        }//Caso este contenido entre dos valores con llave principal
+                        else if (i < aux.valores.Length - 1 && aux.valores[i + 1] != null &&
+                            (FuncionCompararLlavePrincipal(FuncionObtenerLlavePrincipal(aux.valores[i].valor), llaveBuscarPrincipal) < 0
+                            && FuncionCompararLlavePrincipal(FuncionObtenerLlavePrincipal(aux.valores[i + 1].valor), llaveBuscarPrincipal) > 0))
+                        {
+                            buscarEnArbol(aux.valores[i].derecho, dato);
+                            break;
+                        }
                     }
                 }
-
             }
+
+            
         }
 
         /// <summary>
@@ -728,6 +731,7 @@ namespace TDA.Clases
                 {
                     separarNodos((aux.Padre as NodoLista<T>), subir);
                     buscarEnArbol(raiz, subir);
+                    encontrado = false;
                 }
             }
             else
