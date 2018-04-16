@@ -22,44 +22,89 @@
         </ul>
     </div>
 </div>
-<title>Mi Watchlist</title>
-<h2>WatchList</h2>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Tipo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Anio_Lanzamiento)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Genero)
-        </th>
-        <th></th>
-    </tr>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tipo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Anio_Lanzamiento)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Genero)
-            </td>
-            <td>
-                @Html.ActionLink("Eliminar", "", new { id = item.Nombre })
-            </td>
-        </tr>
+<style type="text/css">
+    body {
+        background-color: #9FF781;
     }
 
-</table>
+    .table {
+        background-color: white;
+        border: 5px solid black;
+    }
+
+
+    #mover {
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+
+    #mover2 {
+        padding-left: 50px;
+        padding-bottom: 30px;
+    }
+
+    #buscar {
+        padding: 20px;
+        background-color: #E1F5A9;
+        width: 400px;
+    }
+
+    h2 {
+        font-size: 70px;
+        padding-left: 500px;
+        
+    }
+
+    #foto {
+        float: right;
+        padding-right: 100px;
+        padding-bottom:10px;
+    }
+</style>
+
+<title>Mi Watchlist</title>
+<h2>WatchList</h2>
+<div id="foto">
+    <img id="ima" src="@Url.Content("~/Imagenes/video.png")" width="150" height="150" />
+</div>
+<div id="mover">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Tipo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Anio_Lanzamiento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Genero)
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tipo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Anio_Lanzamiento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genero)
+                </td>
+                <td>
+                    @Html.ActionLink("Eliminar","Delete", new { id2 = item.Nombre })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

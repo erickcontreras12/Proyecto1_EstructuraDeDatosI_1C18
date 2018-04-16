@@ -12,6 +12,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 }
+
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         @Html.ActionLink("GUAFLIX", "Logeado", "Login", new { area = "" }, new { @class = "navbar-brand" })
@@ -23,7 +24,55 @@
         </ul>
     </div>
 </div>
-@Html.ActionLink("Mostrar Catalogo", "Catalogo", "Login", new { area = "" }, new { @class = "navbar-brand" })
+
+<MARQUEE BEHAVIOR=ALTERNATE style="font-size:70px;">Bienvenido de nuevo ¡@DefaultConnection.getInstance.publico.Nombre! </MARQUEE>
+<style type="text/css">
+    #foto {
+        width: 800px;
+        background-color: #F3F781;
+    }
+
+    mark{
+        font-size:70px;
+       
+    }
+
+    #mover {
+        padding-left: 300px;
+        padding-top: 100px;
+    }
+
+    .navbar-brand1 {
+        font-size: 50px;
+        padding-right: 230px;
+        padding-left:25px;
+        font-size:50px;
+        font-weight: 500;
+        color: black;
+    }
+
+        .navbar-brand1:hover {
+            font-size: 50px;
+            padding-right: 230px;
+        }
+
+    body {
+        background-color: #FE642E;
+    }
+
+    footer {
+        padding-top: 150px;
+        position: center;
+    }
+</style>
+
+<div id="mover">
+    <div id="foto">
+        @Html.ActionLink("Empezar a ver", "Catalogo", "Login", new { area = "" }, new { @class = "navbar-brand1" })<img id="ima" src="@Url.Content("~/Imagenes/poporopos.png")" width="200" height="200" />
+    </div>
+</div>
 
 
-<h2>Bienvenido de nuevo ¡@DefaultConnection.getInstance.publico.Nombre!</h2>
+<footer>
+    <p>&copy; @DateTime.Now.Year - Fabian Alvarez y Erick Contreras ED1</p>
+</footer>

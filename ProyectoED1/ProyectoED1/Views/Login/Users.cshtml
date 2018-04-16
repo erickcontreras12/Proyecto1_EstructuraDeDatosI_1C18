@@ -23,46 +23,96 @@
         </ul>
     </div>
 </div>
+<style type="text/css">
+    body {
+        background-color: #81BEF7;
+    }
 
-@using (Html.BeginForm("Users", "Carga", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    <span>Seleccionar archivo:</span>
-    <input type="file" name="postedFile" />
-        <br />
+    .table {
+        background-color: white;
+        border: 5px solid black;
+    }
+
+
+    #mover {
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+
+    #mover2 {
+        padding-left: 50px;
+        padding-bottom: 30px;
+     
+    }
+
+    #buscar {
+        padding: 20px;
+        background-color: #F7FE2E;
+        width: 400px;
+    }
+
+    h2 {
+        font-size: 70px;
+        padding-left: 500px;
+    }
+
+    #foto {
+        float: right;
+        padding-right: 100px;
+    }
+
+    #titulo{
+        font-size:25px;
+        
+    }
+</style>
+
+<h2>Usuario</h2>
+<div id="foto">
+    <img id="ima" src="@Url.Content("~/Imagenes/usuarios.png")" width="200" height="200" />
+</div>
+<div id="mover2">
+    <div id="buscar">
+        @using (Html.BeginForm("cargauser", "Carga", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <span id="titulo">Seleccionar archivo:</span>
+            <input type="file" name="postedFile" id="boton1"/>
+            <br />
             <input type="submit" value="Subir" />
             <span style="color:green">@ViewBag.Message</span><br />
             <span style="color:green">@ViewBag.Tipo</span>
-}
+        }
+    </div>
+</div>
+    <div id="mover">
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nombre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Apellido)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Username)
+                </th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Apellido)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Username)
+                    </td>
 
-<h2>Usuario</h2>
+                </tr>
+            }
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Apellido)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Username)
-        </th>        
-        <th></th>
-    </tr>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Apellido)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Username)
-            </td>
-
-        </tr>
-    }
-
-</table>
+        </table>
+    </div>

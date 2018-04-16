@@ -88,7 +88,9 @@ namespace ProyectoED1.Controllers
                     db.registrados.FuncionCompararLlavePrincipal = CompararUser;
                     db.registrados.FuncionCompararLlave = CompararNombre;                 
                     db.auxregistrados.Add(user);
-                    db.registrados.Insertar(user);                
+                    db.registrados.Insertar(user);
+                    db.registrados.Insertados.Clear();
+                    db.registrados.recorrer(enorden11);       
                     return RedirectToAction("Index");
                 }
             }
@@ -105,10 +107,10 @@ namespace ProyectoED1.Controllers
         public ActionResult Logeado()
         {
             //Valida que exista alguien logeado
-            if (db.publico.Username == null)
+        /*    if (db.publico.Username == null)
             {
                 return RedirectToAction("Index", "Login");
-            }
+            }*/
             return View();
         }
         /// <summary>
@@ -132,6 +134,7 @@ namespace ProyectoED1.Controllers
         public ActionResult Cerrar()
         {
             db.publico = new Usuario();
+            db.adminadentro = false;
             return View("Index");
         }
 
@@ -141,10 +144,10 @@ namespace ProyectoED1.Controllers
         /// <returns></returns>
         public ActionResult CrearContenido()
         {
-            if (!db.adminadentro)
+      /*      if (!db.adminadentro)
             {
                 return RedirectToAction("Index", "Login");
-            }
+            }*/
             return View();
         }
 
@@ -157,6 +160,7 @@ namespace ProyectoED1.Controllers
         public ActionResult CrearContenido([Bind(Include = "Tipo,Nombre,Anio_Lanzamiento,Genero")] Contenido film)
         {
             Insertar(film);
+            db.filmes.Insertados.Clear();
             db.filmes.recorrer(enorden1);
             return View("CrearContenido");
         }
@@ -265,6 +269,7 @@ namespace ProyectoED1.Controllers
             }
             if (db.registrados.Insertados.Count == 0)
             {
+                db.registrados.Insertados.Clear();
                 db.registrados.recorrer(enorden11);
             }
             return View(db.registrados.Insertados.Distinct().ToList());
@@ -272,11 +277,7 @@ namespace ProyectoED1.Controllers
          
        //Muestra todo el contenido de la pagina, peliculas, series, documentales       
         public ActionResult Catalogo(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+        {            
             List<Contenido> buscados;            
             if (id==null)
             {
@@ -309,10 +310,11 @@ namespace ProyectoED1.Controllers
       /// <returns></returns>
         public ActionResult WatchList()
         {
-            if (db.publico.Username == null)
-            {
-                return RedirectToAction("Index", "Login");
-            }
+            /*  if (db.publico.Username == null)
+              {
+                  return RedirectToAction("Index", "Login");
+              }*/
+            db.publico.WatchList.Insertados.Clear();
             db.publico.WatchList.recorrer(EnordenWatch);
 
             return View(db.publico.WatchList.Insertados.Distinct().ToList());
@@ -351,6 +353,17 @@ namespace ProyectoED1.Controllers
         public ActionResult Archivo()
         {
             //Recorridos
+            db.Peliculas_Anio.Insertados.Clear();
+            db.Peliculas_Genero.Insertados.Clear();
+            db.Peliculas_Nombre.Insertados.Clear();
+            db.Series_Anio.Insertados.Clear();
+            db.Series_Genero.Insertados.Clear();
+            db.Series_Nombre.Insertados.Clear();
+            db.Docu_Nombre.Insertados.Clear();
+            db.Docu_Genero.Insertados.Clear();
+            db.Docu_Anio.Insertados.Clear();
+            db.registrados.Insertados.Clear();
+
             db.Peliculas_Nombre.recorrer(enorden2);
             db.Peliculas_Genero.recorrer(enorden3);
             db.Peliculas_Anio.recorrer(enorden4);
@@ -373,6 +386,25 @@ namespace ProyectoED1.Controllers
             var g = JsonConvert.SerializeObject(db.Docu_Genero.Insertados.Distinct().ToList());
             var h = JsonConvert.SerializeObject(db.Docu_Anio.Insertados.Distinct().ToList());
 
+            //Crear cada archivo en la carpeta especificada
+            string ruta = Server.MapPath("~/ArchivosJsonCreados/");
+            if (!Directory.Exists(ruta))
+            {
+                Directory.CreateDirectory(ruta);
+            }
+
+            //Creacion de la watchlist de cada usuario registrado
+            if (db.registrados != null)
+            {
+                foreach (var item in db.registrados.Insertados)
+                {
+                    var x = JsonConvert.SerializeObject(item.WatchList.Insertados.Distinct().ToList());
+                    StreamWriter watch = new StreamWriter(ruta + "\\" + item.Nombre + "_WatchList.json");
+                    watch.Write(x);
+                    watch.Close();
+                }
+            }
+
             //Serilizacion de usuarios
             List<Usuario> aux = db.registrados.Insertados.Distinct().ToList();
             foreach (var item in aux)
@@ -381,12 +413,7 @@ namespace ProyectoED1.Controllers
             }
             var i = JsonConvert.SerializeObject(aux);
 
-            //Crear cada archivo en la carpeta especificada
-            string ruta = Server.MapPath("~/ArchivosJsonCreados/");
-            if (!Directory.Exists(ruta))
-            {
-                Directory.CreateDirectory(ruta);
-            }
+           
             StreamWriter pelis_Nombre= new StreamWriter(ruta + "\\PeliculasPorNombre.json");
             pelis_Nombre.Write(s);
             pelis_Nombre.Close();
@@ -427,17 +454,7 @@ namespace ProyectoED1.Controllers
             usuarios.Write(i);
             usuarios.Close();
        
-            //Creacion de la watchlist de cada usuario registrado
-            if (db.registrados!=null)
-            {
-                foreach (var item in db.registrados.Insertados)
-                {
-                    var x = JsonConvert.SerializeObject(item.WatchList.Insertados.Distinct().ToList());
-                    StreamWriter watch = new StreamWriter(ruta + "\\" + item.Nombre + "_WatchList.json");
-                    watch.Write(x);
-                    watch.Close();
-                }               
-            }          
+              
 
             return RedirectToAction("Administrador");
         }
@@ -448,10 +465,10 @@ namespace ProyectoED1.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         // GET: Login/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(string id,string id2)
         {
 
-            if (id == null)
+            if (id == null && id2==null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
@@ -459,13 +476,30 @@ namespace ProyectoED1.Controllers
             Predicate<Contenido> Nombre = x => x.Nombre.Equals(id);
             Contenido eliminar = db.filmes.Encontrar(Nombre);
 
-            if (eliminar == null)
+            Predicate<Contenido> Peli = x => x.Nombre.Equals(id2);
+            Contenido eliminar2 = db.publico.WatchList.Encontrar(Peli);
+
+
+            if (eliminar == null && eliminar2 == null)
                 {
                     return HttpNotFound();
+            }
+            else
+            {
+                if (eliminar!=null)
+                {
+                    return View(eliminar);
                 }
+                else
+                {
+                    return View(eliminar2);
+                }
+                
+            }
+
             
 
-            return View(eliminar);
+
         }
         /// <summary>
         /// Eliminar de todo
@@ -475,15 +509,41 @@ namespace ProyectoED1.Controllers
         /// <returns></returns>
         // POST: Login/Delete/5
         [HttpPost]
-        public ActionResult Delete(string id, FormCollection collection)
+        public ActionResult Delete(string id,string id2, FormCollection collection)
         {
             try
             {
-                Predicate<Contenido> Nombre = x => x.Nombre.Equals(id);
-                db.filmes.Eliminar(Nombre);
-                db.filmes.recorrer(enorden1);
-                // TODO: Add delete logic here
-                return RedirectToAction("Catalogo");
+                if (id2==null)
+                {
+                    Predicate<Contenido> Nombre = x => x.Nombre.Equals(id);
+                    db.filmes.Eliminar(Nombre);
+                    db.filmes.Insertados.Clear();
+                    db.filmes.recorrer(enorden1);
+
+                    Predicate<Contenido> Peli = x => x.Nombre.Equals(id);
+                    if (Peli!=null)
+                    {
+                        foreach (var item in db.auxregistrados)
+                        {
+                            item.WatchList.Eliminar(Peli);
+                            item.WatchList.Insertados.Clear();
+                            item.WatchList.recorrer(EnordenWatch);
+                        }                        
+                        
+                    }
+                   
+                    // TODO: Add delete logic here
+                    return RedirectToAction("Catalogo");
+                }
+                else
+                {
+                    Predicate<Contenido> Peli = x => x.Nombre.Equals(id2);
+                    db.publico.WatchList.Eliminar(Peli);
+                    db.publico.WatchList.Insertados.Clear();
+                    db.publico.WatchList.recorrer(EnordenWatch);
+                    return RedirectToAction("WatchList");
+                }
+                                     
             }
             catch
             {

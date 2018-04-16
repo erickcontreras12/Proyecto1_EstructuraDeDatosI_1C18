@@ -14,9 +14,32 @@
 }
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
-        @Html.ActionLink("GUAFLIX", "Logeado", "Login", new { area = "" }, new { @class = "navbar-brand" })
+        @if (@DefaultConnection.getInstance.publico.Username != null)
+            {
+            @Html.ActionLink("GUAFLIX", "Logeado", "Login", new { area = "" }, new { @class = "navbar-brand" })
+        }
+        else if (@DefaultConnection.getInstance.adminadentro == true)
+        {
+            @Html.ActionLink("GUAFLIX", "Administrador", "Login", new { area = "" }, new { @class = "navbar-brand" })
+        }
+        else
+        {
+            @Html.ActionLink("GUAFLIX", "Index", "Login", new { area = "" }, new { @class = "navbar-brand" })
+        }
+       
         <ul class="nav navbar-nav">
+            @if (@DefaultConnection.getInstance.publico.Username != null)
+            {
             <li>@Html.ActionLink("Inicio", "Logeado", "Login")</li>
+            }
+            else if (@DefaultConnection.getInstance.adminadentro == true)
+            {
+                <li>@Html.ActionLink("Inicio", "Administrador", "Login")</li>
+            }
+            else
+            {
+                <li>@Html.ActionLink("Inicio", "Index", "Login")</li>
+            }
             <li>@Html.ActionLink("Mostrar Catalogo", "Catalogo", "Login")</li>     
             @if (@DefaultConnection.getInstance.publico.Username != null)
             {            
@@ -27,57 +50,102 @@
     </div>
 </div>
 
-<h2>Catalogo</h2>
-
-@using (Html.BeginForm("Catalogo", "Login", FormMethod.Get, new { enctype = "multipart/form-data" }))
-{
-    <h2>Buscar Contenido</h2>
-    @Html.TextBox("id")
-    <input type="submit" name="id" value="Buscar" />
-}
-
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Tipo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Anio_Lanzamiento)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Genero)
-        </th>
-        <th></th>
-    </tr>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tipo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Anio_Lanzamiento)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Genero)
-            </td>
-            <td>
-                @if (@DefaultConnection.getInstance.publico.Username != null)
-                {
-                @Html.ActionLink("Agregar a mi WatchList", "agregar", new { id = item.Nombre })
-                }
-                @if (@DefaultConnection.getInstance.adminadentro == true)
-                {
-                @Html.ActionLink("Eliminar", "Delete", new { id = item.Nombre })
-                }
-            </td>
-        </tr>
+<style type="text/css">
+    body {
+        background-color: #FAAC58;
     }
 
-</table>
+    .table{
+        background-color:white;
+        border: 5px solid black;
+    }
+
+    
+    #mover{
+        padding-left:50px;
+        padding-right:50px;
+    }
+    #mover2{
+        padding-left:50px;
+        padding-bottom:30px;
+    }
+
+    #buscar{
+        padding:20px;
+        background-color:#E1F5A9;
+        width:400px;
+    }
+    h1{
+        font-size:70px;
+        padding-left:500px;
+    }
+
+    #foto{
+        float:right;
+        padding-right:100px;
+    }
+</style>
+
+
+<h1>Catalogo</h1>
+<div id="foto">
+    <img id="ima" src="@Url.Content("~/Imagenes/cinta.png")" width="200" height="200" />
+</div>
+<div id="mover2">
+    <div id="buscar">
+
+        @using (Html.BeginForm("Catalogo", "Login", FormMethod.Get, new { enctype = "multipart/form-data" }))
+        {
+            <h2>Buscar Contenido</h2>
+            @Html.TextBox("id")
+            <input type="submit" name="id" value="Buscar" id="bot" />
+        }
+    </div>
+</div>
+<div id="mover">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Tipo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Anio_Lanzamiento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Genero)
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tipo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Anio_Lanzamiento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genero)
+                </td>
+                <td>
+                    @if (@DefaultConnection.getInstance.publico.Username != null)
+                {
+                        @Html.ActionLink("Agregar a mi WatchList", "agregar", new { id = item.Nombre })
+                    }
+                    @if (@DefaultConnection.getInstance.adminadentro == true)
+                {
+                        @Html.ActionLink("Eliminar", "Delete", new { id = item.Nombre })
+                    }
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

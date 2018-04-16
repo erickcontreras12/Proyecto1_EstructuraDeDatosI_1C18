@@ -40,6 +40,10 @@ namespace ProyectoED1.Controllers
         {
             db.filmes.Insertados.Add(actual.valor);
         }
+        private void enorden1(NodoIndividual<Usuario> actual)
+        {
+            db.registrados.Insertados.Add(actual.valor);
+        }
 
         //Creaciones de los arboles ordenados por cada tipo
         public ActionResult CrearDocus()
@@ -185,8 +189,33 @@ namespace ProyectoED1.Controllers
             
             return RedirectToAction("Carga");
         }
+        /// <summary>
+        /// Crea la watchlist del usuario
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult miwatch()
+        {
+            //Crear cada archivo en la carpeta especificada
+            string ruta = Server.MapPath("~/WatchListUsuarios/");
+            if (!Directory.Exists(ruta))
+            {
+                Directory.CreateDirectory(ruta);
+            }
 
+            var x = JsonConvert.SerializeObject(db.publico.WatchList.Insertados.Distinct().ToList());
+            StreamWriter watch = new StreamWriter(ruta + "\\" +db.publico.Username+ "_Watchlist.json");
+            watch.Write(x);
+            watch.Close();
 
+            return RedirectToAction("WatchList", "Login");
+
+        }
+
+        /// <summary>
+        /// Carga principal de las peliculas,series,documentales
+        /// </summary>
+        /// <param name="postedFile"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Carga(HttpPostedFileBase postedFile)
         {
@@ -227,6 +256,7 @@ namespace ProyectoED1.Controllers
                         }
 
                     }
+                    db.filmes.Insertados.Clear();
                     db.filmes.recorrer(enorden);
                     ViewBag.Message = "Cargado Exitosamente";
 
@@ -240,6 +270,90 @@ namespace ProyectoED1.Controllers
                 return View();
             
 
+        }
+        /// <summary>
+        /// Carga del Archivo json de usuarios
+        /// </summary>
+        /// <param name="postedFile"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult cargauser(HttpPostedFileBase postedFile)
+        {
+           
+            if (postedFile != null)
+            {
+
+                string filepath = string.Empty;
+
+                string path = Server.MapPath("~/Uploads/");
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                filepath = path + Path.GetFileName(postedFile.FileName);
+                string extension = Path.GetExtension(postedFile.FileName);
+                postedFile.SaveAs(filepath);
+
+                string csvData = System.IO.File.ReadAllText(filepath);
+
+                try
+                {
+
+                    JArray json = JArray.Parse(csvData);
+
+                    foreach (JObject jsonOperaciones in json.Children<JObject>())
+                    {
+
+                        foreach (JProperty property in jsonOperaciones.Properties())
+                        {
+                            db.registrados.FuncionObtenerLlavePrincipal = ObtenerUser;
+                            db.registrados.FuncionObtenerLlave = ObtenerNombre;
+                            db.registrados.FuncionCompararLlavePrincipal = CompararUser;
+                            db.registrados.FuncionCompararLlave = CompararNombre;
+
+                            Usuario y = JsonConvert.DeserializeObject<Usuario>(jsonOperaciones.ToString());
+                            y.WatchList = new ArbolB<Contenido, string, string>(4);
+                            db.auxregistrados.Add(y);
+                            db.registrados.Insertar(y);
+
+                            break;
+
+                        }
+
+                    }
+                    db.registrados.Insertados.Clear();
+                    db.registrados.recorrer(enorden1);
+                    ViewBag.Message = "Cargado Exitosamente";
+
+                }
+                catch (Exception e)
+                {
+
+                    ViewBag.Message1 = "Dato erroneo.";
+                }
+            }
+            return RedirectToAction("Users", "Login");
+
+        }
+
+        public static string ObtenerUser(Usuario dato)
+        {
+            return dato.Username;
+        }
+
+        public static string ObtenerNombre(Usuario dato)
+        {
+            return dato.Nombre;
+        }
+
+        public static int CompararUser(string actual, string nuevo)
+        {
+            return actual.CompareTo(nuevo);
+        }
+
+        public static int CompararNombre(string actual, string nuevo)
+        {
+            return actual.CompareTo(nuevo);
         }
 
         public void Insertar(Contenido contenido)
@@ -269,17 +383,7 @@ namespace ProyectoED1.Controllers
             }
 
         }
-
-        public static int CompararUser(string actual, string nuevo)
-        {
-            return actual.CompareTo(nuevo);
-        }
-
-        public static int CompararNombre(string actual, string nuevo)
-        {
-            return actual.CompareTo(nuevo);
-        }
-
+   
         public static string ObtenerNombreC(Contenido dato)
         {
             return dato.Nombre;
