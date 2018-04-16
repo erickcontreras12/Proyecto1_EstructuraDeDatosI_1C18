@@ -211,6 +211,24 @@ namespace ProyectoED1.Controllers
 
         }
 
+        public ActionResult usu()
+        {
+            string ruta = Server.MapPath("~/usuariosGenerales/");
+            if (!Directory.Exists(ruta))
+            {
+                Directory.CreateDirectory(ruta);
+            }
+
+            var x = JsonConvert.SerializeObject(db.auxregistrados.Distinct().ToList());
+            StreamWriter u = new StreamWriter(ruta + "Usuarios.json");
+            u.Write(x);
+            u.Close();
+
+            return RedirectToAction("Users", "Login");
+
+        }
+
+
         /// <summary>
         /// Carga principal de las peliculas,series,documentales
         /// </summary>

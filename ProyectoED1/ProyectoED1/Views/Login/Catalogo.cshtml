@@ -12,6 +12,10 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 }
+
+<link rel="icon" type="image/png" href="@Url.Content("~/Imagenes/cinta.png")" />
+<title>Catalogo de Contenido</title>
+
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         @if (@DefaultConnection.getInstance.publico.Username != null)

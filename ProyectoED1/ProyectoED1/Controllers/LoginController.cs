@@ -107,10 +107,10 @@ namespace ProyectoED1.Controllers
         public ActionResult Logeado()
         {
             //Valida que exista alguien logeado
-        /*    if (db.publico.Username == null)
+            if (db.publico.Username == null)
             {
                 return RedirectToAction("Index", "Login");
-            }*/
+            }
             return View();
         }
         /// <summary>
@@ -144,10 +144,10 @@ namespace ProyectoED1.Controllers
         /// <returns></returns>
         public ActionResult CrearContenido()
         {
-      /*      if (!db.adminadentro)
+            if (!db.adminadentro)
             {
                 return RedirectToAction("Index", "Login");
-            }*/
+            }
             return View();
         }
 
@@ -310,10 +310,10 @@ namespace ProyectoED1.Controllers
       /// <returns></returns>
         public ActionResult WatchList()
         {
-            /*  if (db.publico.Username == null)
+              if (db.publico.Username == null)
               {
                   return RedirectToAction("Index", "Login");
-              }*/
+              }
             db.publico.WatchList.Insertados.Clear();
             db.publico.WatchList.recorrer(EnordenWatch);
 
@@ -394,9 +394,10 @@ namespace ProyectoED1.Controllers
             }
 
             //Creacion de la watchlist de cada usuario registrado
+            List<Usuario> aux = db.registrados.Insertados.Distinct().ToList();
             if (db.registrados != null)
             {
-                foreach (var item in db.registrados.Insertados)
+                foreach (var item in aux)
                 {
                     var x = JsonConvert.SerializeObject(item.WatchList.Insertados.Distinct().ToList());
                     StreamWriter watch = new StreamWriter(ruta + "\\" + item.Nombre + "_WatchList.json");
@@ -406,7 +407,7 @@ namespace ProyectoED1.Controllers
             }
 
             //Serilizacion de usuarios
-            List<Usuario> aux = db.registrados.Insertados.Distinct().ToList();
+            //List<Usuario> aux = db.registrados.Insertados.Distinct().ToList();
             foreach (var item in aux)
             {
                 item.WatchList = null;

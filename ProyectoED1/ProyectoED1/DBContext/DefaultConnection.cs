@@ -16,7 +16,7 @@ namespace ProyectoED1.DBContext
         public int IDActual { get; set; }
         public Usuario publico = new Usuario();
      //  public List<Contenido> auxfilmes = new List<Contenido>();
-        public bool adminadentro = true;
+        public bool adminadentro = false;
         //Arboles que se crean
         public ArbolB<Contenido, string, string> filmes = new ArbolB<Contenido, string, string>(5);
         public ArbolB<Usuario, string, string> registrados = new ArbolB<Usuario, string, string>(4);
