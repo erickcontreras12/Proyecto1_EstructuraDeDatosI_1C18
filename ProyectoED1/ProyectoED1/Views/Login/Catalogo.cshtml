@@ -5,6 +5,28 @@
     
 }
 
+@{
+    Layout = null;
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+}
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        @Html.ActionLink("GUAFLIX", "Logeado", "Login", new { area = "" }, new { @class = "navbar-brand" })
+        <ul class="nav navbar-nav">
+            <li>@Html.ActionLink("Inicio", "Logeado", "Login")</li>
+            <li>@Html.ActionLink("Mostrar Catalogo", "Catalogo", "Login")</li>     
+            @if (@DefaultConnection.getInstance.publico.Username != null)
+            {            
+            <li>@Html.ActionLink("Mi WatchList", "WatchList", "Login")</li>
+            <li>@Html.ActionLink("Cerrar Sesion", "Cerrar", "Login")</li>
+            }
+        </ul>
+    </div>
+</div>
+
 <h2>Catalogo</h2>
 
 @using (Html.BeginForm("Catalogo", "Login", FormMethod.Get, new { enctype = "multipart/form-data" }))
@@ -50,7 +72,10 @@
                 {
                 @Html.ActionLink("Agregar a mi WatchList", "agregar", new { id = item.Nombre })
                 }
+                @if (@DefaultConnection.getInstance.adminadentro == true)
+                {
                 @Html.ActionLink("Eliminar", "Delete", new { id = item.Nombre })
+                }
             </td>
         </tr>
     }

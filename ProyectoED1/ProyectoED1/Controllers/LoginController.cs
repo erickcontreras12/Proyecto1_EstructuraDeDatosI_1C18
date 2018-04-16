@@ -20,36 +20,24 @@ namespace ProyectoED1.Controllers
         // GET: Login
         public ActionResult Index()
         {
+
+            //Simulacion de cierre de sesion
+            db.adminadentro = false;
+            db.publico = new Usuario();
             return View();
         }
-
-        public ActionResult Users()
-        {
-            if (db.registrados.Insertados.Count==0)
-            {
-                db.registrados.recorrer(enorden11);
-            }           
-            return View(db.registrados.Insertados.ToList());
-        }
-
-        public ActionResult Administrador()
-        {
-            return View();
-        }
-
-        public ActionResult Logeado()
-        {
-            if (db.publico.Username==null)
-            {
-                return RedirectToAction("Index", "Login");
-            }
-            return View();
-        }
-
+    
+        /// <summary>
+        /// Metodo donde se mandan el usuario y contrasenia con la cual el usuario quiere ingresar, tambien es la validacion de inicio de sesion de administrador
+        /// </summary>
+        /// <param name="user">Usuario</param>
+        /// <param name="contra">Contrasenia</param>
+        /// <returns></returns>
         public ActionResult Logear(string user, string contra)
         {
             if (user == "admin" && contra == "admin")
             {
+                db.adminadentro = true;
                 return RedirectToAction("Administrador");
             }
             else
@@ -65,44 +53,42 @@ namespace ProyectoED1.Controllers
 
             }
         }
-
-        public ActionResult Cerrar()
-        {
-            db.publico = null;
-            return View("Index");
-        }
-
-        // GET: Login/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
+        /// <summary>
+        /// muestra la vista de registro
+        /// </summary>
+        /// <returns></returns>
         public ActionResult registro()
         {
             return View();
         }
+
+        /// <summary>
+        /// Metodo para registrar un nuevo usario y valida que no exista un usuario existente
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="Username"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult registro([Bind(Include = "Nombre,Apellido,Edad,Username,Password")] Usuario user, string Username)
         {
             try
             {
+                //Buscar si el usuario es existente
                 Usuario logeado = db.auxregistrados.Find(x => x.Username == Username);
-                
+
                 if (logeado != null)
                 {
                     ViewBag.Message = "Usuario existente";
                     return View();
                 }
                 else {
+                    //Insercion de usuario
                     db.registrados.FuncionObtenerLlavePrincipal = ObtenerUser;
                     db.registrados.FuncionObtenerLlave = ObtenerNombre;
                     db.registrados.FuncionCompararLlavePrincipal = CompararUser;
-                    db.registrados.FuncionCompararLlave = CompararNombre;
-                    // TODO: Add insert logic here
+                    db.registrados.FuncionCompararLlave = CompararNombre;                 
                     db.auxregistrados.Add(user);
-                    db.registrados.Insertar(user);
-                    string output = JsonConvert.SerializeObject(user);
+                    db.registrados.Insertar(user);                
                     return RedirectToAction("Index");
                 }
             }
@@ -112,155 +98,73 @@ namespace ProyectoED1.Controllers
             }
         }
 
-        public ActionResult CrearContenido()
+        /// <summary>
+        /// Muestra la pantalla principal del usuario
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Logeado()
         {
+            //Valida que exista alguien logeado
+            if (db.publico.Username == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            return View();
+        }
+        /// <summary>
+        /// Muestra pantalla principal de Administrador
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Administrador()
+        {
+            //Valida que admin este logeado
+            if (!db.adminadentro)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             return View();
         }
 
-        public ActionResult Catalogo(string id)
+        /// <summary>
+        /// Metodo de cerrar sesion
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Cerrar()
         {
-            List<Contenido> buscados;            
-            if (id==null)
+            db.publico = new Usuario();
+            return View("Index");
+        }
+
+        /// <summary>
+        /// Muestra la vista de Crear Contenido, para insercion de Contenido manual
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult CrearContenido()
+        {
+            if (!db.adminadentro)
             {
-                buscados = db.filmes.Insertados.Distinct().ToList();
-                return View(buscados.ToList());
+                return RedirectToAction("Index", "Login");
             }
-            else
-            {
-                
-                Predicate<Contenido> Nombres = x => x.Nombre.Contains(id);
-                buscados = db.filmes.Buscar(Nombres);
-               if (buscados.Count() == 0)
-                {
-                    Predicate<Contenido> Genero = x => x.Genero.Contains(id);
-                    buscados = db.filmes.Buscar(Genero);
-
-                    if (buscados.Count==0)
-                    {
-                        Predicate<Contenido> Ani = x => x.Anio_Lanzamiento.Contains(id);
-                        buscados = db.filmes.Buscar(Ani);
-                    }
-                }
-                return View(buscados.ToList());
-            }
-            
+            return View();
         }
-      
-        public ActionResult WatchList()
+
+        /// <summary>
+        /// Metodo de post de cada contenido creado
+        /// </summary>
+        /// <param name="film"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult CrearContenido([Bind(Include = "Tipo,Nombre,Anio_Lanzamiento,Genero")] Contenido film)
         {
-            db.publico.WatchList.recorrer(EnordenWatch);
-
-            return View(db.publico.WatchList.Insertados.Distinct().ToList());
+            Insertar(film);
+            db.filmes.recorrer(enorden1);
+            return View("CrearContenido");
         }
 
-        public void EnordenWatch(NodoIndividual<Contenido> actual)
-        {
-            db.publico.WatchList.Insertados.Add(actual.valor);
-        }
-
-        public ActionResult agregar(string id)
-        {
-            Predicate<Contenido> Nombre = x => x.Nombre.Equals(id);
-            Contenido aux = db.filmes.Encontrar(Nombre);
-            db.publico.WatchList.FuncionObtenerLlavePrincipal = ObtenerNombreC;
-            db.publico.WatchList.FuncionObtenerLlave = ObtenerGenero;
-            db.publico.WatchList.FuncionCompararLlavePrincipal = CompararNombreC;
-            db.publico.WatchList.FuncionCompararLlave = CompararGenero;
-            db.publico.WatchList.Insertar(aux);
-
-            return RedirectToAction("Catalogo");
-        }
-
-        public ActionResult Archivo()
-        {
-            db.Peliculas_Nombre.recorrer(enorden2);
-            db.Peliculas_Genero.recorrer(enorden3);
-            db.Peliculas_Anio.recorrer(enorden4);
-            db.Series_Anio.recorrer(enorden5);
-            db.Series_Genero.recorrer(enorden6);
-            db.Series_Nombre.recorrer(enorden7);
-            db.Docu_Anio.recorrer(enorden8);
-            db.Docu_Genero.recorrer(enorden9);
-            db.Docu_Nombre.recorrer(enorden10);
-            db.registrados.recorrer(enorden11);
-
-            var s = JsonConvert.SerializeObject(db.Peliculas_Nombre.Insertados.Distinct().ToList());
-            var a = JsonConvert.SerializeObject(db.Peliculas_Genero.Insertados.Distinct().ToList());
-            var b = JsonConvert.SerializeObject(db.Peliculas_Anio.Insertados.Distinct().ToList());
-            var c = JsonConvert.SerializeObject(db.Series_Nombre.Insertados.Distinct().ToList());
-            var d = JsonConvert.SerializeObject(db.Series_Genero.Insertados.Distinct().ToList());
-            var e = JsonConvert.SerializeObject(db.Series_Anio.Insertados.Distinct().ToList());
-            var f = JsonConvert.SerializeObject(db.Docu_Nombre.Insertados.Distinct().ToList());
-            var g = JsonConvert.SerializeObject(db.Docu_Genero.Insertados.Distinct().ToList());
-            var h = JsonConvert.SerializeObject(db.Docu_Anio.Insertados.Distinct().ToList());
-
-            List<Usuario> aux = db.registrados.Insertados.Distinct().ToList();
-            foreach (var item in aux)
-            {
-                item.WatchList = null;
-            }
-            var i = JsonConvert.SerializeObject(aux);
-
-            string ruta = Server.MapPath("~/ArchivosJsonCreados/");
-            if (!Directory.Exists(ruta))
-            {
-                Directory.CreateDirectory(ruta);
-            }
-            StreamWriter pelis_Nombre= new StreamWriter(ruta + "\\PeliculasPorNombre.json");
-            pelis_Nombre.Write(s);
-            pelis_Nombre.Close();
-
-            StreamWriter pelis_anio = new StreamWriter(ruta + "\\PeliculasPorAnio.json");
-            pelis_anio.Write(b);
-            pelis_anio.Close();
-
-            StreamWriter pelis_genero = new StreamWriter(ruta + "\\PeliculasPorGenero.json");
-            pelis_genero.Write(a);
-            pelis_genero.Close();
-
-            StreamWriter series_nombre = new StreamWriter(ruta + "\\SeriesPorNombre.json");
-            series_nombre.Write(c);
-            series_nombre.Close();
-
-            StreamWriter series_anio = new StreamWriter(ruta + "\\SeriesPorAnio.json");
-            series_anio.Write(d);
-            series_anio.Close();
-
-            StreamWriter series_genero = new StreamWriter(ruta + "\\SeriesPorGenero.json");
-            series_genero.Write(e);
-            series_genero.Close();
-
-            StreamWriter docu_nombre = new StreamWriter(ruta + "\\DocumentalesPorNombre.json");
-            docu_nombre.Write(f);
-            docu_nombre.Close();
-
-            StreamWriter docu_genero = new StreamWriter(ruta + "\\DocumentalesPorGenero.json");
-            docu_genero.Write(g);
-            docu_genero.Close();
-
-            StreamWriter docu_anio = new StreamWriter(ruta + "\\DocumentalesPorAnio.json");
-            docu_anio.Write(h);
-            docu_anio.Close();
-
-            StreamWriter usuarios = new StreamWriter(ruta + "\\Usuarios.json");
-            usuarios.Write(i);
-            usuarios.Close();
-       
-
-            if (db.registrados!=null)
-            {
-                foreach (var item in db.registrados.Insertados)
-                {
-                    var x = JsonConvert.SerializeObject(item.WatchList.Insertados.Distinct().ToList());
-                    StreamWriter watch = new StreamWriter(ruta + "\\" + item.Nombre + "_WatchList.json");
-                    watch.Write(x);
-                    watch.Close();
-                }               
-            }          
-
-            return RedirectToAction("Administrador");
-        }
-
+        /// <summary>
+        /// Metodo para insertar en su arbol respectivo, identifacando cada tipo
+        /// </summary>
+        /// <param name="contenido"></param>
         public void Insertar(Contenido contenido)
         {
             if (contenido.Tipo == "Documental")
@@ -349,110 +253,205 @@ namespace ProyectoED1.Controllers
 
         }
 
-        //Metodos para darle in orden al arbol        
-        private void enorden1(NodoIndividual<Contenido> actual)
+        /// <summary>
+        /// Muestra el listado de Usuarios registrados en la pagina
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Users()
         {
-            db.filmes.Insertados.Add(actual.valor);                  
-        }
-
-        private void enorden2(NodoIndividual<Contenido> actual)
-        {
-            db.Peliculas_Nombre.Insertados.Add(actual.valor);
-        }
-        private void enorden3(NodoIndividual<Contenido> actual)
-        {
-            db.Peliculas_Genero.Insertados.Add(actual.valor);
-        }
-        private void enorden4(NodoIndividual<Contenido> actual)
-        {
-            db.Peliculas_Anio.Insertados.Add(actual.valor);
-        }
-        private void enorden5(NodoIndividual<Contenido> actual)
-        {
-            db.Series_Anio.Insertados.Add(actual.valor);
-        }
-        private void enorden6(NodoIndividual<Contenido> actual)
-        {
-            db.Series_Genero.Insertados.Add(actual.valor);
-        }
-        private void enorden7(NodoIndividual<Contenido> actual)
-        {
-            db.Series_Nombre.Insertados.Add(actual.valor);
-        }
-        private void enorden8(NodoIndividual<Contenido> actual)
-        {
-            db.Docu_Anio.Insertados.Add(actual.valor);
-        }
-        private void enorden9(NodoIndividual<Contenido> actual)
-        {
-            db.Docu_Genero.Insertados.Add(actual.valor);
-        }
-          private void enorden10(NodoIndividual<Contenido> actual)
-        {
-            db.Docu_Nombre.Insertados.Add(actual.valor);
-        }
-        private void enorden11(NodoIndividual<Usuario> actual)
-        {
-            db.registrados.Insertados.Add(actual.valor);
-        }
-
-        [HttpPost]
-        public ActionResult CrearContenido([Bind(Include = "Tipo,Nombre,Anio_Lanzamiento,Genero")] Contenido film)
-        {
-            Insertar(film);
-            db.filmes.recorrer(enorden1);
-            return View("CrearContenido");
-        }
-
-    
-        // GET: Login/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Login/Create
-        [HttpPost]
-        public ActionResult Create([Bind(Include = "Nombre,Apellido,Edad,Username,Password")] Usuario user)
-        {
-            try
+            if (!db.adminadentro)
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Login");
             }
-            catch
+            if (db.registrados.Insertados.Count == 0)
             {
-                return View();
+                db.registrados.recorrer(enorden11);
             }
+            return View(db.registrados.Insertados.Distinct().ToList());
         }
-
-        // GET: Login/Edit/5
-        public ActionResult Edit(int id)
+         
+       //Muestra todo el contenido de la pagina, peliculas, series, documentales       
+        public ActionResult Catalogo(string id)
         {
-            return View();
-        }
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            List<Contenido> buscados;            
+            if (id==null)
+            {
+                buscados = db.filmes.Insertados.Distinct().ToList();
+                return View(buscados.ToList());
+            }
+            else
+            {
+                
+                Predicate<Contenido> Nombres = x => x.Nombre.Contains(id);
+                buscados = db.filmes.Buscar(Nombres);
+               if (buscados.Count() == 0)
+                {
+                    Predicate<Contenido> Genero = x => x.Genero.Contains(id);
+                    buscados = db.filmes.Buscar(Genero);
 
-        // POST: Login/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+                    if (buscados.Count==0)
+                    {
+                        Predicate<Contenido> Ani = x => x.Anio_Lanzamiento.Contains(id);
+                        buscados = db.filmes.Buscar(Ani);
+                    }
+                }
+                return View(buscados.ToList());
+            }
+            
+        }
+      /// <summary>
+      /// Muestra todo el catalogo de series,peliculas, documentales
+      /// </summary>
+      /// <returns></returns>
+        public ActionResult WatchList()
         {
-            try
+            if (db.publico.Username == null)
             {
-                // TODO: Add update logic here
+                return RedirectToAction("Index", "Login");
+            }
+            db.publico.WatchList.recorrer(EnordenWatch);
 
-                return RedirectToAction("Index");
-            }
-            catch
+            return View(db.publico.WatchList.Insertados.Distinct().ToList());
+        }
+      
+        /// <summary>
+        /// Metodo para agregar pelicula a la watchlist del usuario logeado
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult agregar(string id)
+        {
+
+            if (id == null)
             {
-                return View();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            if (db.publico.Username==null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            Predicate<Contenido> Nombre = x => x.Nombre.Equals(id);
+            Contenido aux = db.filmes.Encontrar(Nombre);
+            db.publico.WatchList.FuncionObtenerLlavePrincipal = ObtenerNombreC;
+            db.publico.WatchList.FuncionObtenerLlave = ObtenerGenero;
+            db.publico.WatchList.FuncionCompararLlavePrincipal = CompararNombreC;
+            db.publico.WatchList.FuncionCompararLlave = CompararGenero;
+            db.publico.WatchList.Insertar(aux);
+
+            return RedirectToAction("Catalogo");
+        }
+        /// <summary>
+        /// Metodo para Escribir todos los archivos Json con cada arbol respectivo
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Archivo()
+        {
+            //Recorridos
+            db.Peliculas_Nombre.recorrer(enorden2);
+            db.Peliculas_Genero.recorrer(enorden3);
+            db.Peliculas_Anio.recorrer(enorden4);
+            db.Series_Anio.recorrer(enorden5);
+            db.Series_Genero.recorrer(enorden6);
+            db.Series_Nombre.recorrer(enorden7);
+            db.Docu_Anio.recorrer(enorden8);
+            db.Docu_Genero.recorrer(enorden9);
+            db.Docu_Nombre.recorrer(enorden10);
+            db.registrados.recorrer(enorden11);
+
+            //Serializacion del archivo
+            var s = JsonConvert.SerializeObject(db.Peliculas_Nombre.Insertados.Distinct().ToList());
+            var a = JsonConvert.SerializeObject(db.Peliculas_Genero.Insertados.Distinct().ToList());
+            var b = JsonConvert.SerializeObject(db.Peliculas_Anio.Insertados.Distinct().ToList());
+            var c = JsonConvert.SerializeObject(db.Series_Nombre.Insertados.Distinct().ToList());
+            var d = JsonConvert.SerializeObject(db.Series_Genero.Insertados.Distinct().ToList());
+            var e = JsonConvert.SerializeObject(db.Series_Anio.Insertados.Distinct().ToList());
+            var f = JsonConvert.SerializeObject(db.Docu_Nombre.Insertados.Distinct().ToList());
+            var g = JsonConvert.SerializeObject(db.Docu_Genero.Insertados.Distinct().ToList());
+            var h = JsonConvert.SerializeObject(db.Docu_Anio.Insertados.Distinct().ToList());
+
+            //Serilizacion de usuarios
+            List<Usuario> aux = db.registrados.Insertados.Distinct().ToList();
+            foreach (var item in aux)
+            {
+                item.WatchList = null;
+            }
+            var i = JsonConvert.SerializeObject(aux);
+
+            //Crear cada archivo en la carpeta especificada
+            string ruta = Server.MapPath("~/ArchivosJsonCreados/");
+            if (!Directory.Exists(ruta))
+            {
+                Directory.CreateDirectory(ruta);
+            }
+            StreamWriter pelis_Nombre= new StreamWriter(ruta + "\\PeliculasPorNombre.json");
+            pelis_Nombre.Write(s);
+            pelis_Nombre.Close();
+
+            StreamWriter pelis_anio = new StreamWriter(ruta + "\\PeliculasPorAnio.json");
+            pelis_anio.Write(b);
+            pelis_anio.Close();
+
+            StreamWriter pelis_genero = new StreamWriter(ruta + "\\PeliculasPorGenero.json");
+            pelis_genero.Write(a);
+            pelis_genero.Close();
+
+            StreamWriter series_nombre = new StreamWriter(ruta + "\\SeriesPorNombre.json");
+            series_nombre.Write(c);
+            series_nombre.Close();
+
+            StreamWriter series_anio = new StreamWriter(ruta + "\\SeriesPorAnio.json");
+            series_anio.Write(d);
+            series_anio.Close();
+
+            StreamWriter series_genero = new StreamWriter(ruta + "\\SeriesPorGenero.json");
+            series_genero.Write(e);
+            series_genero.Close();
+
+            StreamWriter docu_nombre = new StreamWriter(ruta + "\\DocumentalesPorNombre.json");
+            docu_nombre.Write(f);
+            docu_nombre.Close();
+
+            StreamWriter docu_genero = new StreamWriter(ruta + "\\DocumentalesPorGenero.json");
+            docu_genero.Write(g);
+            docu_genero.Close();
+
+            StreamWriter docu_anio = new StreamWriter(ruta + "\\DocumentalesPorAnio.json");
+            docu_anio.Write(h);
+            docu_anio.Close();
+
+            StreamWriter usuarios = new StreamWriter(ruta + "\\Usuarios.json");
+            usuarios.Write(i);
+            usuarios.Close();
+       
+            //Creacion de la watchlist de cada usuario registrado
+            if (db.registrados!=null)
+            {
+                foreach (var item in db.registrados.Insertados)
+                {
+                    var x = JsonConvert.SerializeObject(item.WatchList.Insertados.Distinct().ToList());
+                    StreamWriter watch = new StreamWriter(ruta + "\\" + item.Nombre + "_WatchList.json");
+                    watch.Write(x);
+                    watch.Close();
+                }               
+            }          
+
+            return RedirectToAction("Administrador");
         }
 
+        /// <summary>
+        /// Mostrar el elemento a eliminar
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // GET: Login/Delete/5
         public ActionResult Delete(string id)
-        {                      
-                if (id == null)
+        {
+
+            if (id == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
@@ -468,7 +467,12 @@ namespace ProyectoED1.Controllers
 
             return View(eliminar);
         }
-
+        /// <summary>
+        /// Eliminar de todo
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="collection"></param>
+        /// <returns></returns>
         // POST: Login/Delete/5
         [HttpPost]
         public ActionResult Delete(string id, FormCollection collection)
@@ -534,6 +538,104 @@ namespace ProyectoED1.Controllers
         public static int CompararGenero(string actual, string nuevo)
         {
             return actual.CompareTo(nuevo);
+        }
+
+        //Metodos para darle in orden al arbol  respectivo de cada uno       
+        private void enorden1(NodoIndividual<Contenido> actual)
+        {
+            db.filmes.Insertados.Add(actual.valor);
+        }
+
+        private void enorden2(NodoIndividual<Contenido> actual)
+        {
+            db.Peliculas_Nombre.Insertados.Add(actual.valor);
+        }
+        private void enorden3(NodoIndividual<Contenido> actual)
+        {
+            db.Peliculas_Genero.Insertados.Add(actual.valor);
+        }
+        private void enorden4(NodoIndividual<Contenido> actual)
+        {
+            db.Peliculas_Anio.Insertados.Add(actual.valor);
+        }
+        private void enorden5(NodoIndividual<Contenido> actual)
+        {
+            db.Series_Anio.Insertados.Add(actual.valor);
+        }
+        private void enorden6(NodoIndividual<Contenido> actual)
+        {
+            db.Series_Genero.Insertados.Add(actual.valor);
+        }
+        private void enorden7(NodoIndividual<Contenido> actual)
+        {
+            db.Series_Nombre.Insertados.Add(actual.valor);
+        }
+        private void enorden8(NodoIndividual<Contenido> actual)
+        {
+            db.Docu_Anio.Insertados.Add(actual.valor);
+        }
+        private void enorden9(NodoIndividual<Contenido> actual)
+        {
+            db.Docu_Genero.Insertados.Add(actual.valor);
+        }
+        private void enorden10(NodoIndividual<Contenido> actual)
+        {
+            db.Docu_Nombre.Insertados.Add(actual.valor);
+        }
+        private void enorden11(NodoIndividual<Usuario> actual)
+        {
+            db.registrados.Insertados.Add(actual.valor);
+        }
+        public void EnordenWatch(NodoIndividual<Contenido> actual)
+        {
+            db.publico.WatchList.Insertados.Add(actual.valor);
+        }
+        // GET: Login/Details/5
+        public ActionResult Details(int id)
+        {
+            return View();
+        }
+        // POST: Login/Edit/5
+        [HttpPost]
+        public ActionResult Edit(int id, FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add update logic here
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+        // GET: Login/Create
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: Login/Create
+        [HttpPost]
+        public ActionResult Create([Bind(Include = "Nombre,Apellido,Edad,Username,Password")] Usuario user)
+        {
+            try
+            {
+                // TODO: Add insert logic here
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: Login/Edit/5
+        public ActionResult Edit(int id)
+        {
+            return View();
         }
 
     }

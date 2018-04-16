@@ -1,17 +1,13 @@
 ﻿
 @{
-    ViewBag.Title = "Inicio de Sesion";
-}
-
-@{
     Layout = null;
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 }
-
-<h1>Guaflix</h1>
+<link rel="icon" type="image/png" href="@Url.Content("~/Imagenes/cinta.png")" />
+<h1>Netflix A la Tortrix </h1>
 <title>Guaflix</title>
 
 <style type="text/css">
@@ -26,9 +22,10 @@
     }
 
     body {
+        
         background-color: black;
     }
-
+ 
     #formato {
         background-color: white;
         width: 450px;
@@ -45,6 +42,7 @@
         font-size: 50px;
         color: red;
         font-weight: 900;
+        padding-top:0px;
     }
 </style>
 

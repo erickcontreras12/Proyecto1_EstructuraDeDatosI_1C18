@@ -9,7 +9,8 @@
     @Scripts.Render("~/bundles/modernizr")
 }
 <title>Crear Cuenta</title>
-<h1>Guaflix</h1>
+<link rel="icon" type="image/png" href="@Url.Content("~/Imagenes/cinta.png")" />
+<h1>Netflix A la Tortrix </h1>
 <style type="text/css">
     #sizing-addon1 {
         width: 200px;
@@ -61,7 +62,7 @@
 
 
             <div class="form-horizontal">
-                <h4>Nuevo Usuario</h4>
+                <h3><img src="@Url.Content("~/Imagenes/ticket.png")" width="100" height="100" /> Nuevo Usuario </h3>
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">

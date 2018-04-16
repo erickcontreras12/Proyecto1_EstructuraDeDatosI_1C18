@@ -3,6 +3,17 @@
     ViewBag.Title = "Carga";
 }
 
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        @Html.ActionLink("GUAFLIX", "Administrador", "Login", new { area = "" }, new { @class = "navbar-brand" })
+        <ul class="nav navbar-nav">
+            <li>@Html.ActionLink("Inicio", "Administrador", "Login")</li>
+            <li>@Html.ActionLink("Lista de Usuarios", "Users", "Login")</li>
+            <li>@Html.ActionLink("Cerrar Sesion", "Index", "Home")</li>
+        </ul>
+    </div>
+</div>
+
 <h2>Carga</h2>
 
 @using (Html.BeginForm("Carga", "Carga", FormMethod.Post, new { enctype = "multipart/form-data" }))

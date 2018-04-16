@@ -3,6 +3,26 @@
     ViewBag.Title = "WatchList";
 }
 
+@{
+    Layout = null;
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+}
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        @Html.ActionLink("GUAFLIX", "Logeado", "Login", new { area = "" }, new { @class = "navbar-brand" })
+        <ul class="nav navbar-nav">
+            <li>@Html.ActionLink("Inicio", "Logeado", "Login")</li>            
+            <li>@Html.ActionLink("Mostrar Catalogo", "Catalogo", "Login")</li>     
+            <li>@Html.ActionLink("Mi WatchList", "WatchList", "Login")</li>
+            <li>@Html.ActionLink("Generar mi watchlist", "miwatch", "Carga")</li>
+            <li>@Html.ActionLink("Cerrar Sesion", "Cerrar", "Login")</li>
+        </ul>
+    </div>
+</div>
+<title>Mi Watchlist</title>
 <h2>WatchList</h2>
 
 <table class="table">

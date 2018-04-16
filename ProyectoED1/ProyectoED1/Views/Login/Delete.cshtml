@@ -3,10 +3,29 @@
 @{
     ViewBag.Title = "Delete";
 }
+@{
+    Layout = null;
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+}
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        @Html.ActionLink("GUAFLIX", "Administrador", "Login", new { area = "" }, new { @class = "navbar-brand" })
+        <ul class="nav navbar-nav">
+            <li>@Html.ActionLink("Inicio", "Administrador", "Login")</li>
+            <li>@Html.ActionLink("Lista de Usuarios", "Users", "Login")</li>
+            <li>@Html.ActionLink("Mostrar Catalogo", "Catalogo", "Login")</li>     
+            <li>@Html.ActionLink("Cerrar Sesion", "Index", "Home")</li>
+        </ul>
+    </div>
+</div>
 
 <h2>Delete</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Seguro que deseas eliminar este contenido?</h3>
 <div>
     <h4>Contenido</h4>
     <hr />

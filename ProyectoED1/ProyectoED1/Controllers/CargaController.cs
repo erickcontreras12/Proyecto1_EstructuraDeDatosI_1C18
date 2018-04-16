@@ -24,9 +24,16 @@ namespace ProyectoED1.Controllers
             return View();
         }
     
-
+        /// <summary>
+        /// Muestra la vista de carga
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Carga()
         {
+            if (!db.adminadentro)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             return View();
         }
         private void enorden(NodoIndividual<Contenido> actual)
@@ -34,6 +41,7 @@ namespace ProyectoED1.Controllers
             db.filmes.Insertados.Add(actual.valor);
         }
 
+        //Creaciones de los arboles ordenados por cada tipo
         public ActionResult CrearDocus()
         {
             

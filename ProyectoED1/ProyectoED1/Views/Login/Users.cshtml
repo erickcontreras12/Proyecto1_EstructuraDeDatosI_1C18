@@ -3,22 +3,65 @@
 @{
     ViewBag.Title = "Users";
 }
+@{
+    Layout = null;
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+}
 
-<h2>Users</h2>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        @Html.ActionLink("GUAFLIX", "Administrador", "Login", new { area = "" }, new { @class = "navbar-brand" })
+        <ul class="nav navbar-nav">
+            <li>@Html.ActionLink("Inicio", "Administrador", "Login")</li>
+            <li>@Html.ActionLink("Lista de Usuarios", "Users", "Login")</li>
+            <li>@Html.ActionLink("Mostrar Catalogo", "Catalogo", "Login")</li>     
+            <li>@Html.ActionLink("Generar Archivo de Usuarios", "usu", "Carga")</li>
+            <li>@Html.ActionLink("Cerrar Sesion", "Index", "Home")</li>
+        </ul>
+    </div>
+</div>
+
+@using (Html.BeginForm("Users", "Carga", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <span>Seleccionar archivo:</span>
+    <input type="file" name="postedFile" />
+        <br />
+            <input type="submit" value="Subir" />
+            <span style="color:green">@ViewBag.Message</span><br />
+            <span style="color:green">@ViewBag.Tipo</span>
+}
+
+<h2>Usuario</h2>
 
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Username)
+            @Html.DisplayNameFor(model => model.Nombre)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Apellido)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Username)
+        </th>        
         <th></th>
     </tr>
     @foreach (var item in Model)
     {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Apellido)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Username)
             </td>
+
         </tr>
     }
 
