@@ -54,16 +54,31 @@ namespace ProyectoED1.Controllers
 
             foreach (Contenido item in db.filmes.Insertados)
             {
-                db.Docu_Nombre.Insertar(item);
+                if (item.Tipo == "Documental")
+                {
+                    db.Docu_Nombre.Insertar(item);
+                  
+                }
+            }
+         foreach (Contenido item in db.filmes.Insertados)
+            {
+                if (item.Tipo == "Documental")
+                {
+                 
+                    db.Docu_Genero.Insertar(item);
+                 
+                }
             }
             foreach (Contenido item in db.filmes.Insertados)
             {
-                db.Docu_Genero.Insertar(item);
+                if (item.Tipo == "Documental")
+                {
+                   
+                    db.Docu_Anio.Insertar(item);
+                }
+
             }
-            foreach (Contenido item in db.filmes.Insertados)
-            {
-                db.Docu_Anio.Insertar(item);
-            }
+            
 
             return RedirectToAction("Carga");
         }
@@ -88,15 +103,29 @@ namespace ProyectoED1.Controllers
 
             foreach (Contenido item in db.filmes.Insertados)
             {
-                db.Peliculas_Nombre.Insertar(item);
+                if (item.Tipo=="Pelicula")
+                {
+                    db.Peliculas_Nombre.Insertar(item);
+
+                }
+                
             }
             foreach (Contenido item in db.filmes.Insertados)
             {
-                db.Peliculas_Genero.Insertar(item);
+                if (item.Tipo == "Pelicula")
+                {
+                   
+                    db.Peliculas_Genero.Insertar(item);
+                   
+                }
             }
             foreach (Contenido item in db.filmes.Insertados)
             {
-                db.Peliculas_Anio.Insertar(item);
+                if (item.Tipo == "Pelicula")
+                {
+                    
+                    db.Peliculas_Anio.Insertar(item);
+                }
             }
 
             return RedirectToAction("Carga");
@@ -122,17 +151,30 @@ namespace ProyectoED1.Controllers
 
             foreach (Contenido item in db.filmes.Insertados)
             {
-                db.Series_Nombre.Insertar(item);
+                if (item.Tipo == "Serie")
+                {
+                    db.Series_Nombre.Insertar(item);
+                    
+                }
             }
-            foreach (Contenido item in db.filmes.Insertados)
+           foreach (Contenido item in db.filmes.Insertados)
             {
-                db.Series_Genero.Insertar(item);
-            }
-            foreach (Contenido item in db.filmes.Insertados)
-            {
-                db.Series_Anio.Insertar(item);
-            }
+                if (item.Tipo == "Serie")
+                {
+                    
+                    db.Series_Genero.Insertar(item);
+                    
+                }
 
+            }
+            foreach (Contenido item in db.filmes.Insertados)
+            {
+                if (item.Tipo == "Serie")
+                {                    
+                    db.Series_Anio.Insertar(item);
+                }
+            }
+            
             return RedirectToAction("Carga");
         }
 

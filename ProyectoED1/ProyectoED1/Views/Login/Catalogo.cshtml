@@ -1,6 +1,8 @@
 ﻿@model  IEnumerable<ProyectoED1.Models.Contenido>
+    @using ProyectoED1.DBContext;
 @{
     ViewBag.Title = "Catalogo";
+    
 }
 
 <h2>Catalogo</h2>
@@ -44,7 +46,10 @@
                 @Html.DisplayFor(modelItem => item.Genero)
             </td>
             <td>
+                @if (@DefaultConnection.getInstance.publico.Username != null)
+                {
                 @Html.ActionLink("Agregar a mi WatchList", "agregar", new { id = item.Nombre })
+                }
                 @Html.ActionLink("Eliminar", "Delete", new { id = item.Nombre })
             </td>
         </tr>

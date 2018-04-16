@@ -39,6 +39,10 @@ namespace ProyectoED1.Controllers
 
         public ActionResult Logeado()
         {
+            if (db.publico.Username==null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             return View();
         }
 
@@ -146,7 +150,7 @@ namespace ProyectoED1.Controllers
         {
             db.publico.WatchList.recorrer(EnordenWatch);
 
-            return View(db.publico.WatchList.Insertados.ToList());
+            return View(db.publico.WatchList.Insertados.Distinct().ToList());
         }
 
         public void EnordenWatch(NodoIndividual<Contenido> actual)
@@ -180,17 +184,17 @@ namespace ProyectoED1.Controllers
             db.Docu_Nombre.recorrer(enorden10);
             db.registrados.recorrer(enorden11);
 
-            var s = JsonConvert.SerializeObject(db.Peliculas_Nombre.Insertados);
-            var a = JsonConvert.SerializeObject(db.Peliculas_Genero.Insertados);
-            var b = JsonConvert.SerializeObject(db.Peliculas_Anio.Insertados);
-            var c = JsonConvert.SerializeObject(db.Series_Nombre.Insertados);
-            var d = JsonConvert.SerializeObject(db.Series_Genero.Insertados);
-            var e = JsonConvert.SerializeObject(db.Series_Anio.Insertados);
-            var f = JsonConvert.SerializeObject(db.Docu_Nombre.Insertados);
-            var g = JsonConvert.SerializeObject(db.Docu_Genero.Insertados);
-            var h = JsonConvert.SerializeObject(db.Docu_Anio.Insertados);
+            var s = JsonConvert.SerializeObject(db.Peliculas_Nombre.Insertados.Distinct().ToList());
+            var a = JsonConvert.SerializeObject(db.Peliculas_Genero.Insertados.Distinct().ToList());
+            var b = JsonConvert.SerializeObject(db.Peliculas_Anio.Insertados.Distinct().ToList());
+            var c = JsonConvert.SerializeObject(db.Series_Nombre.Insertados.Distinct().ToList());
+            var d = JsonConvert.SerializeObject(db.Series_Genero.Insertados.Distinct().ToList());
+            var e = JsonConvert.SerializeObject(db.Series_Anio.Insertados.Distinct().ToList());
+            var f = JsonConvert.SerializeObject(db.Docu_Nombre.Insertados.Distinct().ToList());
+            var g = JsonConvert.SerializeObject(db.Docu_Genero.Insertados.Distinct().ToList());
+            var h = JsonConvert.SerializeObject(db.Docu_Anio.Insertados.Distinct().ToList());
 
-            List<Usuario> aux = db.registrados.Insertados;
+            List<Usuario> aux = db.registrados.Insertados.Distinct().ToList();
             foreach (var item in aux)
             {
                 item.WatchList = null;
@@ -247,7 +251,7 @@ namespace ProyectoED1.Controllers
             {
                 foreach (var item in db.registrados.Insertados)
                 {
-                    var x = JsonConvert.SerializeObject(item.WatchList.Insertados);
+                    var x = JsonConvert.SerializeObject(item.WatchList.Insertados.Distinct().ToList());
                     StreamWriter watch = new StreamWriter(ruta + "\\" + item.Nombre + "_WatchList.json");
                     watch.Write(x);
                     watch.Close();
@@ -473,6 +477,7 @@ namespace ProyectoED1.Controllers
             {
                 Predicate<Contenido> Nombre = x => x.Nombre.Equals(id);
                 db.filmes.Eliminar(Nombre);
+                db.filmes.recorrer(enorden1);
                 // TODO: Add delete logic here
                 return RedirectToAction("Catalogo");
             }

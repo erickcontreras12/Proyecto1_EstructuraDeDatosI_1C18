@@ -675,8 +675,9 @@ namespace TDA.Clases
             NodoIndividual<T> subir;
             NodoLista<T> hijoIzq = new NodoLista<T>(grado);
             NodoLista<T> hijoDer = new NodoLista<T>(grado);
-            double indice = (grado / 2) - 1;
-            if (grado % 2 != 0)
+            double indiceaux =((double)grado / (double)2);
+            double indice = indiceaux - 1;
+            if (grado % 2 == 1)
             {
                 indice = indice + 0.5;
             }
@@ -779,11 +780,11 @@ namespace TDA.Clases
         public void Eliminar(Predicate<T> x)
         {
 
-            T elimado = Insertados.Find(x);
+            T elimado = Encontrar(x);
             Insertados.Remove(elimado);
             raiz = null;
             raiz = new NodoLista<T>(grado);
-            List<T> aux = Insertados;
+            List<T> aux = Insertados.Distinct().ToList();
             Insertados = new List<T>();
             foreach (T item in aux)
             {
