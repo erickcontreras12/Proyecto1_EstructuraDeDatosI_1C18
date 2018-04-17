@@ -7,8 +7,11 @@ lo cual permitiera el fácil acceso a un dato específico.
 
 -----------------------------------------------------
 ## Arbol B
-### Nodos
+La única parte que necesita detallarse en este documento es el uso de los nodos respectivos del proyecto, dado que cada
+método dentro de la clase ArbolB está bien explicado en su respectiva documentación interna.
 Para hacer uso del arbol se utilizaron dos tipos de nodos: NodoIndividual y NodoLista.
+
+### Nodos
 
 * NodoIndividual es un nodo que contiene el valor de un tipo de genérico y dos apuntadores hacia sus hijos, derecho e izquierdo,
 esto porque cada valor específico de la lista de valores que posee un nodo en un árbol B puede tener sus propios hijo derecho e
