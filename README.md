@@ -39,4 +39,13 @@ tipo de nodo porque todos los valores que se encuentren acá provienen de un nod
 -----------------------------------------------------
 ## Aplicación
 
-![]()
+![](https://ibb.co/b6DaZ7)
+
+https://ibb.co/b6DaZ7
+https://ibb.co/cFtynS
+https://ibb.co/gZD9u7
+https://ibb.co/gW8ynS
+https://ibb.co/kcA01n
+https://ibb.co/ftDynS
+https://ibb.co/bYNDMn
+https://ibb.co/dES2E7
