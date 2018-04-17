@@ -135,15 +135,17 @@ namespace TDA.Clases
 
             if (yaInsertado)
             {
-                //insertar a la lisa gg
-                //  Insertados.Add(dato);
+                Insertados.Add(dato);
                 asignarPadres3(raiz);
                 yaInsertado = false;
                 nuevito = null;
             }
         }
 
-    
+        /// <summary>
+        /// Metodo que asigna todo los padres que corresponden a cada nodo lista
+        /// </summary>
+        /// <param name="aux">Nodo lista para iniciar</param>
         private void asignarPadres3(NodoLista<T> aux)
         {
             if (aux != null)
@@ -518,7 +520,12 @@ namespace TDA.Clases
             }
         }
 
-
+        /// <summary>
+        /// Funcion para encontrar un dato especifico dentro de un nodo lista
+        /// </summary>
+        /// <param name="aux">Nodo lista para buscar</param>
+        /// <param name="dato">Dato buscado</param>
+        /// <returns>posicion del dato</returns>
         private int buscarEnLista(NodoLista<T> aux, T dato)
         {
             for (int i = 0; i < aux.valores.Length; i++)
@@ -535,6 +542,12 @@ namespace TDA.Clases
             return 0;
         }
 
+        /// <summary>
+        /// Metodo que asigna los hijos a los datos que ya pertenecian a un nodo lista
+        /// luego de que sube un valor nuevo
+        /// </summary>
+        /// <param name="aux">Nodo lista</param>
+        /// <param name="ind">Posicion en la que se encuentra el nodo que sube</param>
         private void asignarHijos(NodoIndividual<T>[] aux, int ind)
         {
             if (ind == 0 && aux[ind + 1] == null)
@@ -556,6 +569,12 @@ namespace TDA.Clases
             }
         }
 
+        /// <summary>
+        /// Metodo para buscar el nuevo nodo lista en el que se encuentra el dato que sube
+        /// para asignar los hijos de manera correcta en todo el arbol
+        /// </summary>
+        /// <param name="aux">Nodo lista donde inicia la busqueda</param>
+        /// <param name="dato">Dato que sube</param>
         public void buscarEnArbol(NodoLista<T> aux, NodoIndividual<T> dato)
         {
             K llaveBuscar = FuncionObtenerLlave(dato.valor);
@@ -705,15 +724,6 @@ namespace TDA.Clases
             {
                 if (validarEspacio(aux.Padre as NodoLista<T>))
                 {
-                    //Falta asignar los nuevos hijos de los hermanos
-                    //if (aux.Padre.valores[0].padre == null)
-                    //{
-                    //    subir.padre = null;
-                    //}
-                    //else
-                    //{
-                    //    subir.padre = aux.Padre.valores[0].padre;
-                    //}
                     insertarExistenteEnArreglo(aux.Padre, subir);
                     hijoDer.Padre = aux.Padre;
                     hijoIzq.Padre = aux.Padre;
@@ -741,7 +751,6 @@ namespace TDA.Clases
             else
             {
                 NodoLista<T> raizAux = new NodoLista<T>(grado);
-                //subir.padre = null;
                 insertarExistenteEnArreglo(raizAux, subir);
                 int ind = buscarEnLista(raizAux, subir.valor);
                 if (ind == 0)
@@ -760,7 +769,12 @@ namespace TDA.Clases
             }
         }
 
-
+        /// <summary>
+        /// Busca todos los datos que compartan el criterio de busqueda y los 
+        /// devuelve en una lista
+        /// </summary>
+        /// <param name="x">Criterio de busqueda</param>
+        /// <returns>Lista de datos</returns>
         public List<T> Buscar(Predicate<T> x)
         {
 
@@ -769,6 +783,12 @@ namespace TDA.Clases
             return buscados.ToList();
         }
 
+        /// <summary>
+        /// Busca un dato unico dentro de la lista de insertados para devolverlo con
+        /// toda su informacion
+        /// </summary>
+        /// <param name="x">Parametro de busqueda</param>
+        /// <returns>Dato encontrado</returns>
         public T Encontrar(Predicate<T> x)
         {
 
@@ -777,6 +797,13 @@ namespace TDA.Clases
             return buscados;
         }
 
+        /// <summary>
+        /// Metodo que busca el nodo individual a eliminar en la lista de ingresados,
+        /// cuando lo encuentra lo elimina de la lista y crea una lista auxiliar de ingresados,
+        /// elimina la raiz para empezar el arbol de 0 y empieza a ingresar los valores de la
+        /// lista auxiliar
+        /// </summary>
+        /// <param name="x">Parametro de busqueda para eliminar</param>
         public void Eliminar(Predicate<T> x)
         {
 
