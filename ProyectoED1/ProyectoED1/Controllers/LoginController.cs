@@ -414,6 +414,10 @@ namespace ProyectoED1.Controllers
             }
             var i = JsonConvert.SerializeObject(aux);
 
+            foreach (var item in aux)
+            {
+                item.WatchList = new ArbolB<Contenido, string, string>(3);
+            }
            
             StreamWriter pelis_Nombre= new StreamWriter(ruta + "\\PeliculasPorNombre.json");
             pelis_Nombre.Write(s);
@@ -460,13 +464,35 @@ namespace ProyectoED1.Controllers
             return RedirectToAction("Administrador");
         }
 
-        /// <summary>
-        /// Mostrar el elemento a eliminar
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        // GET: Login/Delete/5
-        public ActionResult Delete(string id,string id2)
+        public ActionResult vaciar()
+        {
+             db.filmes = new ArbolB<Contenido, string, string>(5);
+             db.Series_Nombre = new ArbolB<Contenido, string, string>(4);
+         db.Series_Genero = new ArbolB<Contenido, string, string>(4);
+        db.Series_Anio = new ArbolB<Contenido, string, string>(4);
+         db.Peliculas_Nombre = new ArbolB<Contenido, string, string>(4);
+         db.Peliculas_Genero = new ArbolB<Contenido, string, string>(4);
+         db.Peliculas_Anio = new ArbolB<Contenido, string, string>(4);
+         db.Docu_Nombre = new ArbolB<Contenido, string, string>(4);
+         db.Docu_Genero = new ArbolB<Contenido, string, string>(4);
+         db.Docu_Anio = new ArbolB<Contenido, string, string>(4);
+
+            foreach (var item in db.auxregistrados)
+            {
+                item.WatchList = new ArbolB<Contenido, string, string>(3);
+            }
+
+            return RedirectToAction("Catalogo");
+
+    }
+
+    /// <summary>
+    /// Mostrar el elemento a eliminar
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    // GET: Login/Delete/5
+    public ActionResult Delete(string id,string id2)
         {
 
             if (id == null && id2==null)
